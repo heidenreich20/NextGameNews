@@ -1,11 +1,10 @@
-'use client'
 import '../globals.css'
 import React, { useState } from 'react'
 import MenuIcon from '@mui/icons-material/Menu'
 import { DrawerComponent } from '../utils'
 import { IconButton, Typography } from '@mui/material'
 import SearchBar from '../utils/SearchBar'
-
+import Link from 'next/link'
 
 const Header = () => {
   const [openMenu, setOpenMenu] = useState(false)
@@ -39,12 +38,12 @@ const Header = () => {
         onClose={() => setOpenMenu(false)}
       />
 
-      <a
+      <Link
         href='/'
         className='csm:block hidden font-logo text-3xl text-white hover:cursor-pointer dark:text-white md:text-5xl'
       >
         <h1>GAMENEWS</h1>
-      </a>
+      </Link>
       <section className='block md:hidden'>
         <SearchBar />
       </section>

@@ -1,11 +1,9 @@
 import '../globals.css'
 import Link from 'next/link'
 import LoadMoreButton from '../utils/LoadMoreButton'
-import { BodyNews } from '../utils'
-import { ReviewNews } from '../utils'
+import { BodyNews, ReviewNews } from '../utils'
 
 const Main = () => {
-
   return (
     <section
       className='main-body mx-auto my-4 bg-gray-50 shadow-3xl shadow-sky-700 dark:bg-slate-800 csm:w-3/4 csm:rounded-lg'
@@ -29,12 +27,9 @@ const Main = () => {
               <h2 className='rounded-lg border-b-2 border-b-slate-700 p-3 font-title text-3xl text-white'>
                 Análisis
               </h2>
-          <ReviewNews />
+              <ReviewNews />
               <Link
-                // eslint-disable-next-line react/jsx-curly-brace-presence
-                href={'/analisis'}
-                // eslint-disable-next-line react/jsx-curly-brace-presence
-                // to={'http://localhost:5173/analisis'}
+                href='/analisis'
                 id='categorySection'
                 className='flex items-center justify-center px-3 pb-3 text-lg font-bold text-slate-500 hover:cursor-pointer'
               >

@@ -61,24 +61,24 @@ export const NewsListProvider = ({ children }) => {
   }, [category])
 
   const loadMore = async () => {
-    setLoading(true);
+    setLoading(true)
     try {
       const response = await fetch(
         `${SERVER_PREFIX_URL}/news/category?limit=${limit + 5}&category=${!category ? undefined : category}`
-      );
+      )
       if (response.ok) {
-        const { newsList } = await response.json();
-        setLimit(prev => prev + 5);
-        setSortedList(newsList);
+        const { newsList } = await response.json()
+        setLimit(prev => prev + 5)
+        setSortedList(newsList)
       } else {
-        console.error(`Request failed with status ${response.status}`);
+        console.error(`Request failed with status ${response.status}`)
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <NewsListContext.Provider value={{ loadMore, loadingCategory, limit, newsList, loading, totalNews, setCategory, category, sortedList }}>

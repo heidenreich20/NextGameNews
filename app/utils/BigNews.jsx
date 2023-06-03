@@ -1,8 +1,6 @@
-'use client'
 import '../globals.css'
 import React from 'react'
 import { PlayStation, Nintendo, Xbox, PC } from '../assets'
-
 const consoles = {
   PlayStation,
   Xbox,
@@ -28,7 +26,9 @@ const BigNews = ({ image, text, type, console }) => {
               const ConsoleSVG = consoles[consoleName]
               return ConsoleSVG
                 ? (
-                  <img className='sm:w-8 w-2' key={index} src={ConsoleSVG} alt='videogame console logo' />
+                  <img
+                    className='sm:w-8 w-2' key={index} src={ConsoleSVG} alt='videogame console logo'
+                  />
                   )
                 : null
             })}

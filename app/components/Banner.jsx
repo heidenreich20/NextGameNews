@@ -1,4 +1,3 @@
-'use client'
 import '../globals.css'
 import React, { useContext } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'

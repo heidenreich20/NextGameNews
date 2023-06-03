@@ -12,7 +12,6 @@ const navigationLinks = [
 ]
 
 const Header = () => {
-
   return (
     <nav className='sticky top-0 z-50 hidden md:block'>
       <Box
@@ -44,9 +43,7 @@ const Header = () => {
               sx={{ color: 'white' }}
               variant='text'
             >
-              <Link href={item.href}>
-                {item.name}
-              </Link>
+              <Link href={item.href}>{item.name}</Link>
             </Button>
           ))}
         </Box>
@@ -59,8 +56,7 @@ const Header = () => {
             borderRight: 3,
             borderColor: '#1e293b'
           }}
-        >
-        </Box>
+        />
         <SearchBar />
         <DarkModeSwitch />
       </Box>

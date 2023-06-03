@@ -28,7 +28,7 @@ export const MainNews = ({ title, image, author, category, time, text, id }) => 
 
   return (
     <li
-      onClick={isMediumDeviceUp ? handleClick : undefined}
+      // onClick={isMediumDeviceUp ? handleClick : undefined}
       id='MainNews'
       style={{
         backgroundImage:
@@ -53,13 +53,13 @@ export const MainNews = ({ title, image, author, category, time, text, id }) => 
               isMediumDeviceUp && expanded ? 'show-content' : 'hide-content'
             }
           >
-            <p
+            {/* <p
               className={
                 expanded ? 'news-inner-text dark:text-gray-50' : undefined
               }
             >
               {text}
-            </p>
+            </p> */}
           </div>
 
           <article className='hidden items-center justify-between csm:flex'>
@@ -80,8 +80,7 @@ export const MainNews = ({ title, image, author, category, time, text, id }) => 
       <img
         loading='lazy'
         onClick={isMediumDeviceUp ? handleClick : undefined}
-        className={`relative hover:cursor-pointer ${
-            isMediumDeviceUp && expanded ? 'hidden' : 'flex'
+        className={`relative hover:cursor-pointer ${isMediumDeviceUp && expanded ? 'hidden' : 'flex'
           } csm:static sm:w-1/3 aspect-video object-cover rounded-md dark:shadow-[0_0px_20px_3px_rgba(0,0,0,0.4)] shadow-[0_0px_12px_3px_rgba(156,156,156,0.6)] dark:border-slate-700`}
         src={image}
         alt={`a image of the videogame ${category}`}

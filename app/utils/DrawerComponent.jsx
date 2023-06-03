@@ -1,12 +1,11 @@
 'use client'
 import '../globals.css'
-import React, { useContext } from 'react'
-import { DarkModeContext } from '../context/DarkModeContext'
+import React from 'react'
 import {
   Drawer,
   Box,
   Typography,
-  IconButton,
+  IconButton
 } from '@mui/material'
 import { navigationLinks } from '../components/Navbar'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
@@ -17,8 +16,6 @@ import Link from 'next/link'
 import DarkModeSwitch from './DarkModeSwitch'
 
 const DrawerComponent = ({ open, onClose }) => {
-  const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext)
-
   return (
     <Drawer anchor='left' open={open} disableScrollLock onClose={onClose}>
       <Box

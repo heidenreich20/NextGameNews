@@ -1,19 +1,21 @@
 'use client'
-import '../globals.css'
-import React, { useContext } from 'react'
-import { useParams } from 'next/navigation';
+import { useContext } from 'react'
+import { useParams } from 'next/navigation'
 import { NewsListContext } from '../context/NewsListContext'
 
 const ArticleReviewBody = () => {
-  const { newsList } = useContext(NewsListContext)
+  const { sortedList } = useContext(NewsListContext)
   const params = useParams()
 
-  const article = newsList.find(item => item._id === params.postId);
-
+  const article = sortedList.find(article => article._id === params.postId)
+  console.log(sortedList)
   return (
     <>
       <div className='text-white overflow-hidden relative bg-black/[.50] flex flex-col gap-16 m-auto'>
-        <img src={article?.image} className='absolute w-full h-full object-cover -z-10 blur-sm' alt='' />
+        <img
+          src={article?.image}
+          className='absolute w-full h-full object-cover -z-10 blur-sm'
+        />
         <section className='gap-16 px-5 flex w-full sm:w-2/3 flex-col sm:m-auto'>
           <h1 className='text-3xl mt-5 font-bold'>{article?.title}</h1>
           <p className='text-xl'>{article?.text}</p>
