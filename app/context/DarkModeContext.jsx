@@ -1,5 +1,4 @@
-'use client'
-import React, { createContext, useState, useEffect } from 'react'
+import React, { createContext, useState, useEffect, useLayoutEffect } from 'react'
 
 export const DarkModeContext = createContext()
 
@@ -8,7 +7,7 @@ export const DarkModeProvider = ({ children }) => {
 
   const toggleDarkMode = () => {
     const newDarkMode = !isDarkMode
-    setIsDarkMode(!isDarkMode)
+    setIsDarkMode(newDarkMode)
     localStorage.setItem('darkMode', JSON.stringify(newDarkMode))
   }
 
@@ -16,10 +15,14 @@ export const DarkModeProvider = ({ children }) => {
     const storedDarkMode = JSON.parse(localStorage.getItem('darkMode'))
     if (storedDarkMode !== null) {
       setIsDarkMode(storedDarkMode)
+    } else {
+      const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+      setIsDarkMode(prefersDarkMode)
+      localStorage.setItem('darkMode', JSON.stringify(prefersDarkMode))
     }
   }, [])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.querySelector('html').classList.toggle('dark', isDarkMode)
   }, [isDarkMode])
 
