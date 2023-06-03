@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 'use client'
 import '../globals.css'
 import React, { useContext } from 'react'
