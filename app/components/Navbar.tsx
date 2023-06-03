@@ -1,9 +1,6 @@
-'use client'
 import '../globals.css'
-import React, { useContext } from 'react'
-import { DarkModeContext } from '../context/DarkModeContext'
 import { Box, Button } from '@mui/material'
-import { DarkModeSwitch } from '../utils/DrawerComponent'
+import DarkModeSwitch from '../utils/DarkModeSwitch'
 import Link from 'next/link'
 import SearchBar from '../utils/SearchBar'
 
@@ -15,7 +12,6 @@ const navigationLinks = [
 ]
 
 const Header = () => {
-  const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext)
 
   return (
     <nav className='sticky top-0 z-50 hidden md:block'>
@@ -66,12 +62,7 @@ const Header = () => {
         >
         </Box>
         <SearchBar />
-        <DarkModeSwitch
-          aria-label='dark mode toggle'
-          checked={isDarkMode}
-          onChange={toggleDarkMode}
-          inputProps={{ 'aria-label': 'controlled' }}
-        />
+        <DarkModeSwitch />
       </Box>
     </nav>
   )

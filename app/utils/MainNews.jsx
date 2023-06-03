@@ -3,7 +3,7 @@ import '../globals.css'
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 
-const MainNews = ({ title, image, author, category, time, text, id }) => {
+export const MainNews = ({ title, image, author, category, time, text, id }) => {
   const [expanded, setExpanded] = useState(false)
 
   const handleClick = () => {
