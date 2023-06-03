@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-closing-tag-location */
 'use client'
 import '../globals.css'
 import React, { useContext } from 'react'
