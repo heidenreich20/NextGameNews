@@ -64,7 +64,7 @@ export const NewsListProvider = ({ children }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `${SERVER_PREFIX_URL}/news/category?limit=${limit + 5}&category=${!category ? 'all' : category}`
+        `${SERVER_PREFIX_URL}/news/category?limit=${limit + 5}&category=${!category ? undefined : category}`
       );
       if (response.ok) {
         const { newsList } = await response.json();
