@@ -64,7 +64,6 @@ const DarkModeSwitch = () => {
   const toggleDarkMode = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark')
   }
-  console.log(theme)
   return (
     <DarkModeToggle
       aria-label='dark mode toggle'

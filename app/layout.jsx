@@ -1,7 +1,6 @@
 'use client'
 import './globals.css'
 import { Header, Navbar } from './components'
-import { DarkModeProvider } from './context/DarkModeContext'
 import { NewsListProvider } from './context/NewsListContext'
 import { ThemeProvider } from 'next-themes'
 

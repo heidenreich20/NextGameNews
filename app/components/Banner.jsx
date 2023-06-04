@@ -82,19 +82,6 @@ const Banner = () => {
             </div>
           </div>
         </>}
-      {/* <div className='flex justify-center bg-gradient-to-b from-sky-900 to-transparent pb-3 '>
-        <p className='flex flex-wrap items-center text-white'>
-          🔥HOT TOPICS &gt;
-          {hotTopics.map((topic, key) => {
-            return (
-              <React.Fragment key={key}>
-                <Link sx={buttonSX}>{topic}</Link>
-                {key !== hotTopics.length - 1 && <span>-</span>}
-              </React.Fragment>
-            )
-          })}
-        </p>
-      </div> */}
     </div>
   )
 }

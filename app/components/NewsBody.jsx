@@ -3,11 +3,14 @@ import Link from 'next/link'
 import LoadMoreButton from '../utils/LoadMoreButton'
 import { BodyNews, ReviewNews } from '../utils'
 
-const Main = () => {
+const NewsBody = () => {
   return (
     <section
       className='main-body mx-auto my-4 bg-gray-50 shadow-3xl shadow-sky-700 dark:bg-slate-800 csm:w-3/4 csm:rounded-lg'
     >
+      {/* {newsList.map((val, index) => {
+        return <div key={index}>{val.title}</div>
+      })} */}
       <div
         id='newsBody'
         className='flex csm:h-24 h-16 items-center justify-center csm:items-end gap-3 rounded-lg bg-gray-50 dark:bg-slate-800 csm:justify-start'
@@ -44,4 +47,4 @@ const Main = () => {
   )
 }
 
-export default Main
+export default NewsBody

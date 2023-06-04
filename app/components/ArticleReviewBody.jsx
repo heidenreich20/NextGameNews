@@ -8,7 +8,6 @@ const ArticleReviewBody = () => {
   const params = useParams()
 
   const article = sortedList.find(article => article._id === params.postId)
-  console.log(sortedList)
   return (
     <>
       <div className='text-white overflow-hidden relative bg-black/[.50] flex flex-col gap-16 m-auto'>
