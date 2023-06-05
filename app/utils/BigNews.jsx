@@ -10,6 +10,7 @@ const consoles = {
   Nintendo,
   PC
 }
+console.log(Xbox)
 const BigNews = ({ image, text, type, console }) => {
   return (
     <div
