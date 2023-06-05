@@ -16,7 +16,7 @@ module.exports = {
         instagram: '#C13584'
       },
       fontFamily: {
-        logo: ['manolo_monoregular'],
+        logo: ['Goldman_regular'],
         title: ['Bebas Neue'],
         article: ['Arial']
       },

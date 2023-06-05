@@ -4,9 +4,9 @@
 
 @font-face {
   font-display: swap;
-  font-family: 'manolo_monoregular';
-  src: url('./assets/fonts/manolomono-webfont.woff') format('woff2'),
-    url('./assets/fonts/manolomono-webfont.woff') format('woff');
+  font-family: 'Goldman_regular';
+  src: url('./assets/fonts/Goldman-Regular.ttf') format('woff2'),
+    url('./assets/fonts/Goldman-Regular.ttf') format('woff');
   font-weight: normal;
   font-style: normal;
 
