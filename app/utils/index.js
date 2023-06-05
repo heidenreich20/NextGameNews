@@ -1,7 +1,6 @@
 export { default as SmallNews } from './SmallNews'
 export { default as BigNews } from './BigNews'
 export { default as MainNews } from './MainNews'
-export { default as Ads } from './Ads'
 export { default as Reviews } from './Reviews'
 export { default as DrawerComponent } from './DrawerComponent'
 export { default as LoadMoreButton } from './LoadMoreButton'

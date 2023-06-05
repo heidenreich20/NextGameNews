@@ -21,7 +21,7 @@ const BodyNews = () => {
       {loading
         ? <div className='flex xs:mt-0 mt-5 justify-center items-center'>
           <CircularProgress />
-        </div>
+          </div>
         : null}
     </ul>
   )

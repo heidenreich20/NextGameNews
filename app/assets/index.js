@@ -1,13 +1,27 @@
-export { default as CoD } from './cod.png'
-export { default as Apex } from './apex.jpg'
-export { default as Ark } from './ark.jpg'
-export { default as MGS } from './mgs.jpg'
-export { default as EldenRing } from './eldenring.jpg'
-export { default as PlayStation } from './playstation.svg'
-export { default as Nintendo } from './nintendo.svg'
-export { default as Xbox } from './xbox.svg'
-export { default as Mobile } from './mobile.png'
-export { default as Profile } from './perfil.png'
-export { default as Katito } from './katito.jpg'
-export { default as PC } from './pclogo.svg'
-export { default as Search } from './search.svg'
+// import CoDImage from './cod.png'
+// import ApexImage from './apex.jpg'
+// import ArkImage from './ark.jpg'
+// import MGSImage from './mgs.jpg'
+// import EldenRingImage from './eldenring.jpg'
+// import PlayStationIcon from './playstation.svg'
+// import NintendoIcon from './nintendo.svg'
+// import XboxIcon from './xbox.svg'
+// import MobileImage from './mobile.png'
+// import ProfileImage from './perfil.png'
+// import KatitoImage from './katito.jpg'
+// import PCLogo from './pclogo.svg'
+// import SearchIcon from './search.svg'
+
+// export const CoD = CoDImage
+// export const Apex = ApexImage
+// export const Ark = ArkImage
+// export const MGS = MGSImage
+// export const EldenRing = EldenRingImage
+// export const PlayStation = PlayStationIcon
+// export const Nintendo = NintendoIcon
+// export const Xbox = XboxIcon
+// export const Mobile = MobileImage
+// export const Profile = ProfileImage
+// export const Katito = KatitoImage
+// export const PC = PCLogo
+// export const Search = SearchIcon

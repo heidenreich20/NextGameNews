@@ -1,6 +1,9 @@
 import '../globals.css'
 import React from 'react'
-import { PlayStation, Nintendo, Xbox, PC } from '../assets'
+import PlayStation from '../assets/playstation.svg'
+import Xbox from '../assets/xbox.svg'
+import Nintendo from '../assets/nintendo.svg'
+import PC from '../assets/pclogo.svg'
 const consoles = {
   PlayStation,
   Xbox,
@@ -27,11 +30,12 @@ const BigNews = ({ image, text, type, console }) => {
               return ConsoleSVG
                 ? (
                   <img
-                    className='sm:w-8 w-2' key={index} src={ConsoleSVG} alt='videogame console logo'
+                    className='sm:w-8 w-2' key={index} src={ConsoleSVG.src} alt='videogame console logo'
                   />
                   )
                 : null
             })}
+
           </div>
         </div>
         <p id='bannerText' className='px-2 pb-3 text-xs xl:text-3xl'>
