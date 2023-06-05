@@ -33,18 +33,18 @@ import { NewsListContext } from '../context/NewsListContext'
 const Banner = () => {
   const { newsList, loading } = useContext(NewsListContext)
   return (
-    <div>
+    <div className='flex flex-col md:py-4 gap-8 bg-gradient-to-b from-sky-900/[.40] to-transparent md:bg-slate-900'>
       {/* handles the main news in the banner */}
       {loading
         ? <div><LinearProgress /></div>
         : <>
           <div
             id='swiper'
-            className='flex overflow-hidden pt-5 csm:m-auto csm:w-3/4 csm:p-0 md:flex-row'
+            className='flex overflow-hidden py-2 csm:m-auto csm:w-3/4 csm:p-0 md:flex-row'
           >
             <Swiper
               style={{ borderRadius: '12px' }}
-              className='mt-2'
+              className='md:my-2'
               spaceBetween={10}
               slidesPerView={1}
               slidesPerGroup={1}
@@ -74,7 +74,7 @@ const Banner = () => {
             </Swiper>
           </div>
 
-          <div className='flex justify-center gap-3 bg-gradient-to-t from-sky-900 to-transparent py-5'>
+          <div className='md:flex hidden justify-center gap-2 py-3'>
             <div className='mx-2 flex flex-col gap-4 overflow-hidden csm:m-0 csm:mx-4 csm:w-3/4 md:flex-row'>
               {newsList.slice(2, 5).map((news, index) => (
                 <SmallNews key={index} image={news?.image} text={news?.title} />

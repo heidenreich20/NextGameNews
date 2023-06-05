@@ -1,6 +1,7 @@
 import '../globals.css'
 // import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export const MainNews = ({ title, image, author, category, time, text, id }) => {
   // const [expanded, setExpanded] = useState(false)
@@ -75,7 +76,9 @@ export const MainNews = ({ title, image, author, category, time, text, id }) => 
           </article>
         </div>
       </section>
-      <img
+      <Image
+        width={500}
+        height={500}
         loading='lazy'
         // onClick={isMediumDeviceUp ? handleClick : undefined}
         // ${isMediumDeviceUp && expanded ? 'hidden' : 'flex'}

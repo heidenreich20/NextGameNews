@@ -6,7 +6,7 @@ import { BodyNews, ReviewNews } from '../utils'
 const NewsBody = () => {
   return (
     <section
-      className='main-body mx-auto my-4 bg-gray-50 shadow-3xl shadow-sky-700 dark:bg-slate-800 csm:w-3/4 csm:rounded-lg'
+      className='main-body mx-auto md:my-4 bg-gray-50 shadow-3xl shadow-sky-700 dark:bg-slate-800 csm:w-3/4 csm:rounded-lg'
     >
       {/* {newsList.map((val, index) => {
         return <div key={index}>{val.title}</div>
