@@ -2,12 +2,21 @@
 import { useContext } from 'react'
 import { useParams } from 'next/navigation'
 import { NewsListContext } from '../context/NewsListContext'
+import ReactMarkdown from 'react-markdown'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import dayjs from 'dayjs'
+import { es } from 'dayjs/locale/es'
+
+dayjs.locale('es')
+dayjs.extend(relativeTime)
 
 const ArticleReviewBody = () => {
   const { sortedList } = useContext(NewsListContext)
   const params = useParams()
 
   const article = sortedList.find(article => article._id === params.postId)
+  const timeSinceUpload = dayjs(article?.createdAt).fromNow()
+
   return (
     <>
       <div className='text-white overflow-hidden relative bg-black/[.50] flex flex-col gap-16 m-auto'>
@@ -18,13 +27,20 @@ const ArticleReviewBody = () => {
         <section className='gap-16 px-5 flex w-full sm:w-2/3 flex-col sm:m-auto'>
           <h1 className='text-3xl mt-5 font-bold'>{article?.title}</h1>
           <p className='text-xl'>{article?.text}</p>
+          <aside className='flex flex-row justify-between text-lg'>
+            <h3 className='flex flex-row gap-1'>
+              <p className='font-bold text-white'>Por</p>
+              <p className='text-sky-500 font-bold'>{article?.author}</p>
+            </h3>
+            <p>{timeSinceUpload}</p>
+          </aside>
         </section>
         <div>
           <img className='md:w-2/3 w-5/6 object-cover mx-auto' loading='lazy' src={article?.image} />
         </div>
       </div>
-      <section>
-        <p className='text-white text-xl p-5'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus fugiat aspernatur modi praesentium cumque! Veniam culpa odio architecto, deserunt voluptatibus eligendi? Pariatur magni sit modi, velit aliquid ut reiciendis consequatur.
+      <ReactMarkdown className='text-white text-xl p-5 md:w-2/3 m-auto'>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus fugiat aspernatur modi praesentium cumque! Veniam culpa odio architecto, deserunt voluptatibus eligendi? Pariatur magni sit modi, velit aliquid ut reiciendis consequatur.
           Quo officia voluptatibus, harum blanditiis architecto cupiditate asperiores laboriosam molestias dolor autem recusandae aliquam ea itaque voluptas accusamus inventore quis minima tempore facilis atque. Repudiandae necessitatibus at veniam officiis nemo.
           Nulla consectetur aut quis neque odio repellendus illum molestias suscipit nostrum odit aspernatur, praesentium, totam facilis laborum possimus nesciunt sit ducimus laudantium corporis ex voluptatibus tempora quo! Omnis, vero magni!
           Placeat distinctio numquam unde, labore enim odio, nesciunt molestiae error hic fugiat possimus recusandae, iusto quod explicabo ipsa cumque excepturi. Voluptatum consectetur alias distinctio debitis nobis optio nam, error sequi.
@@ -44,8 +60,7 @@ const ArticleReviewBody = () => {
           Voluptatibus quia nulla, blanditiis nostrum eius explicabo repellat. Ad excepturi incidunt quibusdam veritatis at officia vitae esse? Sunt, saepe sed? Culpa maiores temporibus dicta laborum nihil repellendus eligendi totam reprehenderit?
           Aperiam ad quibusdam exercitationem aliquid voluptatibus tenetur illo maiores reiciendis dicta repellat. Ipsa ad maiores sequi saepe exercitationem, excepturi similique vero fugit sint cum iste voluptates voluptatum eveniet, quo adipisci.
           Sunt, ut? Dignissimos perferendis provident nisi quidem illum eligendi, id sapiente iure dolor iusto praesentium repudiandae aliquam atque, eos nemo? Doloremque facere perferendis neque fuga est ipsa quibusdam aliquam nobis?
-        </p>
-      </section>
+      </ReactMarkdown>
     </>
   )
 }
