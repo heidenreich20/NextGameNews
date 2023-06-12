@@ -21,7 +21,7 @@ const secondaryBtnSX = {
 const Footer = () => {
   return (
     <div className='gradient-footer flex flex-col place-content-between items-center bg-black p-2'>
-      <div className='flex flex-wrap justify-center gap-2'>
+      <div className='flex text-white flex-wrap justify-center gap-2'>
         <Link aria-label='contact us' href='/'>
           Contacto
         </Link>

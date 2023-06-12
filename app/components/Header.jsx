@@ -10,7 +10,7 @@ const Header = () => {
   const [openMenu, setOpenMenu] = useState(false)
 
   return (
-    <header className='gradient-banner sticky top-0 z-50 m-auto flex sm:grid justify-around h-14 grid-cols-2 csm:grid-cols-3 place-items-center items-center gap-1 border-b-2 border-slate-800 csm:static csm:gap-4 md:h-20'>
+    <header className='gradient-banner sticky top-0 z-50 m-auto flex sm:grid justify-around h-14 grid-cols-2 csm:grid-cols-3 place-items-center items-center gap-1 csm:static csm:gap-4 md:h-20'>
       <IconButton
         onClick={() => setOpenMenu(true)}
         sx={{

@@ -36,11 +36,11 @@ export const MainNews = ({ title, image, author, category, time, text, id }) => 
       // }}
       // ${expanded ? 'bg-cover' : undefined}
       className='
-              relative csm:m-0 m-1 cursor-pointer flex flex-col-reverse justify-between overflow-hidden rounded-lg border-gray-200 dark:border-slate-700 dark:bg-slate-600
+              relative csm:m-0 m-1 cursor-pointer flex flex-col-reverse justify-between overflow-hidden rounded-lg border-gray-200 dark:border-slate-700 dark:bg-slate-700
               csm:p-2 p-0 csm:ml-1 csm:flex-row csm:place-items-center csm:border-2'
     >
       <section className='flex w-2/3 flex-col-reverse justify-between csm:mr-5 csm:flex-row'>
-        <div className='absolute overflow-hidden z-10 flex flex-col justify-center min-h-[33%] lg:rounded-lg dark:bg-slate-500/[.75] bg-zinc-200/[.75] rounded-b-lg p-2 csm:static csm:flex csm:bg-slate-100/[.85] csm:p-3 csm:dark:bg-slate-500/[.85]'>
+        <div className='absolute overflow-hidden z-10 flex flex-col justify-center min-h-[33%] lg:rounded-lg rounded-b-lg p-2 csm:static csm:flex csm:p-3'>
           <Link
             href={`analisis/${id}`}
             className='flex text-xs leading-tight dark:text-gray-50 text-gray-800 hover:cursor-pointer csm:mb-3 sm:text-xl csm:text-slate-900 csm:dark:text-gray-50 2xl:text-lg font-semibold'

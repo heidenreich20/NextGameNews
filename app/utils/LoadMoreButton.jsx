@@ -8,7 +8,7 @@ const LoadMoreButton = () => {
   return (
     sortedList?.length !== totalNews
       ? <button
-          className='mx-2 my-3 rounded-md bg-slate-300 px-2 py-2 text-xs font-bold hover:animate-pulse hover:bg-slate-400 dark:bg-slate-500'
+          className='mx-2 my-3 rounded-md bg-slate-300 px-2 py-2 text-xs font-bold hover:animate-pulse hover:bg-slate-400 dark:bg-slate-600'
           onClick={loadMore}
         >
         MAS NOTICIAS

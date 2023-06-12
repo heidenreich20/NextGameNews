@@ -13,16 +13,13 @@ const navigationLinks = [
 
 const Header = () => {
   return (
-    <nav className='sticky top-0 z-50 hidden md:block'>
+    <nav className='gradient-navbar sticky top-0 z-50 hidden md:grid grid-cols-2'>
       <Box
         sx={{
-          borderBottom: 2,
-          borderColor: '#1e293b',
-          justifyContent: 'center',
+          justifyContent: 'end',
           alignItems: 'center',
           display: { xs: 'none', md: 'flex' },
-          height: '3rem',
-          bgcolor: '#0b1221'
+          height: '3rem'
         }}
       >
         <Box
@@ -47,16 +44,8 @@ const Header = () => {
             </Button>
           ))}
         </Box>
-        <Box
-          sx={{
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            px: '1rem',
-            borderRight: 3,
-            borderColor: '#1e293b'
-          }}
-        />
+      </Box>
+      <Box className='flex items-center'>
         <SearchBar />
         <DarkModeSwitch />
       </Box>

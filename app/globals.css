@@ -181,6 +181,11 @@ body {
       hsla(222, 46%, 7%, 1) 100%);
 }
 
+.gradient-navbar {
+  background: rgb(26,16,10);
+  background: linear-gradient(180deg, rgba(26,16,10,1) 0%, rgba(30,41,59,1) 100%);
+}
+
 
 input:focus-visible {
   outline: 0;

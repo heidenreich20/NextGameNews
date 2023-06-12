@@ -24,7 +24,7 @@ const NewsBody = () => {
       </div>
       <div className='m-auto grid gap-2 grid-cols-1 rounded-lg bg-gray-50 pb-1 dark:bg-slate-800 md:grid-cols-3'>
         <BodyNews />
-        <div className='hidden grid-cols-1 mr-2 rounded-lg border-2 border-slate-200 dark:border-slate-600 dark:bg-slate-600 md:grid'>
+        <div className='hidden grid-cols-1 mr-2 rounded-lg border-2 border-slate-200 dark:border-slate-800 dark:bg-slate-700 md:grid'>
           <article className='m-2 rounded-lg'>
             <aside className='rounded-lg bg-black'>
               <h2 className='rounded-lg border-b-2 border-b-slate-700 p-3 font-title text-3xl text-white'>

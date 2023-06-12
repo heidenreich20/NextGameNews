@@ -25,7 +25,7 @@ const SearchBar = () => {
 
   return (
     <form className='flex justify-end items-center mx-2 sm:mx-4' onSubmit={handleSubmit}>
-      <input onChange={handleChange} value={value} name='query' className='rounded-sm md:w-full w-2/3 focus-visible:border-2 py-0.5 px-1 font-semibold focus-visible:border-red-500 bg-slate-300 placeholder:text-slate-700' placeholder='Buscar...' />
+      <input onChange={handleChange} value={value} name='query' className='rounded-sm md:w-full w-2/3 dark:text-slate-800 py-0.5 px-1 font-semibold bg-slate-300 placeholder:text-slate-700' placeholder='Buscar...' />
       <SearchIcon className='border-l text-slate-700 border-slate-700 absolute' />
     </form>
   )
