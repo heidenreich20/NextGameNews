@@ -13,7 +13,7 @@ const navigationLinks = [
 
 const Header = () => {
   return (
-    <nav className='gradient-navbar sticky top-0 z-50 hidden md:grid grid-cols-2'>
+    <nav className='gradient-navbar border-b-2 border-slate-700 sticky top-0 z-50 hidden md:grid grid-cols-2'>
       <Box
         sx={{
           justifyContent: 'end',
@@ -27,8 +27,6 @@ const Header = () => {
             height: '100%',
             display: 'flex',
             borderBox: 'true',
-            borderRight: 3,
-            borderColor: '#1e293b',
             alignItems: 'center',
             px: '1rem'
           }}
