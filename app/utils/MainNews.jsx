@@ -40,7 +40,7 @@ export const MainNews = ({ title, image, author, category, time, text, id }) => 
               csm:p-2 p-0 csm:ml-1 csm:flex-row csm:place-items-center csm:border-2'
     >
       <section className='flex w-2/3 flex-col-reverse justify-between csm:mr-5 csm:flex-row'>
-        <div className='absolute overflow-hidden z-10 flex flex-col justify-center min-h-[33%] lg:rounded-lg rounded-b-lg p-2 csm:static csm:flex csm:p-3'>
+        <div className='absolute bg-zinc-100/[0.75] w-full overflow-hidden z-10 flex flex-col justify-center min-h-[33%] lg:rounded-lg rounded-b-lg p-2 csm:static csm:flex csm:p-3'>
           <Link
             href={`analisis/${id}`}
             className='flex text-xs leading-tight dark:text-gray-50 text-gray-800 hover:cursor-pointer csm:mb-3 sm:text-xl csm:text-slate-900 csm:dark:text-gray-50 2xl:text-lg font-semibold'
