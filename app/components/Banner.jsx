@@ -6,29 +6,6 @@ import 'swiper/swiper-bundle.min.css'
 import { SmallNews, BigNews } from '../utils'
 import LinearProgress from '@mui/material/LinearProgress'
 import { NewsListContext } from '../context/NewsListContext'
-// const hotTopics = [
-//   'Free Games',
-//   'Cyberpunk',
-//   '2077',
-//   'Wordle',
-//   'PC Gaming',
-//   'Forspoken',
-//   'Pokémon',
-//   'Batman',
-//   'Pokémon Go',
-//   'Overwatch 2',
-//   'RTX 3080'
-// ]
-
-// const buttonSX = {
-//   mx: '0.2rem',
-//   p: '0.15rem',
-//   borderRadius: '5px',
-//   textDecoration: 'none',
-//   cursor: 'pointer',
-//   color: '#e6e6e6',
-//   '&:hover': { bgcolor: 'rgba(7, 89, 133, 0.5)' }
-// }
 
 const Banner = () => {
   const { newsList, loading } = useContext(NewsListContext)
@@ -40,7 +17,7 @@ const Banner = () => {
         : <>
           <div
             id='swiper'
-            className='flex overflow-hidden py-2 csm:m-auto csm:w-3/4 csm:p-0 md:flex-row'
+            className='flex overflow-hidden py-2 csm:m-auto sm:w-3/4 md:flex-row'
           >
             <Swiper
               style={{ borderRadius: '12px' }}

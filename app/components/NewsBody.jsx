@@ -8,9 +8,6 @@ const NewsBody = () => {
     <section
       className='main-body my-2 mx-auto bg-gray-50 shadow-3xl shadow-sky-700 dark:bg-slate-800 csm:w-3/4 csm:rounded-lg'
     >
-      {/* {newsList.map((val, index) => {
-        return <div key={index}>{val.title}</div>
-      })} */}
       <div
         id='newsBody'
         className='flex csm:h-24 h-16 items-center justify-center csm:items-end gap-3 rounded-lg bg-gray-50 dark:bg-slate-800 csm:justify-start'

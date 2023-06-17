@@ -8,10 +8,6 @@ const SearchBar = () => {
   const [value, setValue] = useState('')
   const { setCategory, category } = useContext(NewsListContext)
 
-  //   const debouncedSearch = useCallback(debounce(search => {
-  //     setCategory(search)
-  //   }, 300), [])
-
   const handleSubmit = (event) => {
     event.preventDefault()
     setCategory(value)
