@@ -10,13 +10,12 @@ const Header = () => {
   const [openMenu, setOpenMenu] = useState(false)
 
   return (
-    <header className='gradient-banner border-b-2 border-b-slate-700 sticky top-0 z-50 m-auto flex sm:grid sm:justify-center justify-between h-14 place-items-center items-center gap-1 csm:static csm:gap-4 md:h-20'>
+    <header className='gradient-banner border-b-2 border-b-slate-700 sticky top-0 z-50 m-auto flex sm:justify-center justify-between h-14 place-items-center items-center gap-1 csm:static csm:gap-4 md:h-20'>
       <IconButton
         className='sm:hidden flex'
         onClick={() => setOpenMenu(true)}
         sx={{
           borderRadius: '1rem',
-          color: 'white',
           fontSize: '1.2rem',
           fontFamily: 'var(--main-font)'
         }}
