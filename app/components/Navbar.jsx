@@ -13,7 +13,7 @@ const navigationLinks = [
 
 const Header = () => {
   return (
-    <nav className='gradient-navbar border-b-2 border-slate-700 sticky hidden top-0 z-50 sm:grid grid-cols-2'>
+    <nav className='gradient-navbar border-b-2 m-auto border-slate-700 sticky hidden top-0 cmd:grid sm:justify-center z-50 sm:flex cmd:grid-cols-2'>
       <Box
         sx={{
           justifyContent: 'end',
@@ -35,7 +35,7 @@ const Header = () => {
             <Button
               aria-label={`Navigation button to ${item.name}`}
               key={item.name}
-              sx={{ color: 'white', fontSize: { sm: '0.8rem', md: '1rem' } }}
+              sx={{ color: 'white', fontWeight: '600', fontSize: { sm: '0.8rem', md: '0.75rem' } }}
               variant='text'
             >
               <Link href={item.href}>{item.name}</Link>

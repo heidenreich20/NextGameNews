@@ -34,6 +34,7 @@ module.exports = {
       screens: {
         sm: '720px',
         csm: '720px',
+        cmd: '850px',
         md: '1150px'
       },
       boxShadow: {
