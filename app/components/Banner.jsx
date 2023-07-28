@@ -11,7 +11,6 @@ const Banner = () => {
   const { newsList, loading } = useContext(NewsListContext)
   return (
     <div className='flex flex-col md:py-4 gap-8 bg-gradient-to-b from-sky-900/[.40] to-transparent md:bg-slate-900'>
-      {/* handles the main news in the banner */}
       {loading
         ? <div><LinearProgress /></div>
         : <>
