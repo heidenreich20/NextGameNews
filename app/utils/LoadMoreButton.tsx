@@ -52,7 +52,6 @@ const LoadMoreButton = ({ initialCount, totalNewsCount }: LoadMoreButtonProps) =
 
   return (
     <>
-      {/* Extra articles rendered in the same visual column as BodyNews */}
       {extraNews.length > 0 && (
         <ul
           className='flex flex-col gap-2 px-3 csm:px-0 pb-2'

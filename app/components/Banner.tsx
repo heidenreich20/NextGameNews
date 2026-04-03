@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 import '../globals.css'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
-import 'swiper/css'
 import BigNews from '../utils/BigNews'
 import SmallNews from '../utils/SmallNews'
 
