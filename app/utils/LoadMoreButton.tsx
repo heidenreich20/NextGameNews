@@ -60,13 +60,13 @@ const LoadMoreButton = ({ initialCount, totalNewsCount }: LoadMoreButtonProps) =
         >
           {extraNews.map((item, index) => (
             <ArticleCard
-              key={item._id}
-              id={item._id}
+              key={item.id}
+              id={item.id}
               title={item.title}
               image={item.image}
               author={item.author}
               category={item.category}
-              time={dayjs(item.createdAt).fromNow()}
+              time={dayjs(item.created_at).fromNow()}
               priority={index === 0}
             />
           ))}

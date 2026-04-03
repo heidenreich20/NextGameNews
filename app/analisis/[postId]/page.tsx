@@ -5,7 +5,7 @@ import ArticleReviewBody from '../../components/ArticleReviewBody'
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const getArticle = async (postId: string): Promise<NewsItem> => {
-  const res = await fetch(`${API_URL}/news/${postId}`, {
+  const res = await fetch(`${API_URL}news/${postId}`, {
     next:   { revalidate: 60 },
     signal: AbortSignal.timeout(10_000),
   })

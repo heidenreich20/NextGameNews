@@ -1,15 +1,15 @@
 // app/types/types.ts
 export interface NewsItem {
-  _id:           string
-  title:         string
-  text:          string
-  image:         string
-  author:        string
-  category:      string
-  type:          string
-  console:       string[]
-  createdAt:     string
-  updatedAt?:    string
+  id:          string
+  title:       string
+  text:        string
+  image:       string
+  author:      string
+  category:    string
+  type:        string
+  console:     string[]
+  created_at:  string
+  updated_at?: string
 }
 
 export interface NewsListResponse {

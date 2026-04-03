@@ -9,7 +9,7 @@ const PAGE_LIMIT = 10
 const ANALYSIS_LIMIT = 4
 
 const getNews = async (): Promise<{ allNews: NewsItem[]; totalNewsCount: number }> => {
-  const res = await fetch(`${API_URL}/news?limit=${PAGE_LIMIT}`, {
+  const res = await fetch(`${API_URL}news?limit=${PAGE_LIMIT}`, {
     next: { revalidate: 60 },
     signal: AbortSignal.timeout(10_000),
   })

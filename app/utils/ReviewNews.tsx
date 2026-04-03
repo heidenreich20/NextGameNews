@@ -1,7 +1,7 @@
 import Reviews from './Reviews'
 
 interface ReviewItem {
-  _id: string
+  id: string
   category: string
   image: string
   title?: string
@@ -19,10 +19,10 @@ const ReviewNews = ({ reviews = [] }: ReviewNewsProps) => {
       className='grid grid-cols-2 gap-1.5 p-2'
       aria-label='Análisis recientes'
     >
-      {reviews.map(({ _id, category, image, title }) => (
+      {reviews.map(({ id, category, image, title }) => (
         <Reviews
-          key={_id}
-          id={_id}
+          key={id}
+          id={id}
           category={category}
           image={image}
           title={title}

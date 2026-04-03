@@ -61,7 +61,7 @@ const Spinner = () => (
 const ResultItem = ({ item, query, onSelect }: { item: NewsItem; query: string; onSelect: () => void }) => (
   <li>
     <Link
-      href={`/analisis/${item._id}`}
+      href={`/analisis/${item.id}`}
       onClick={onSelect}
       className='flex gap-3 p-2 rounded transition-colors duration-150 hover:bg-white/5 focus-visible:outline-none focus-visible:ring-1'
       style={{ '--tw-ring-color': 'var(--color-primary)' } as React.CSSProperties}
@@ -94,7 +94,7 @@ const ResultItem = ({ item, query, onSelect }: { item: NewsItem; query: string; 
           className='text-[0.65rem] mt-1'
           style={{ fontFamily: 'var(--font-article)', color: 'rgba(232,213,163,0.35)' }}
         >
-          {item.author} · {dayjs(item.createdAt).fromNow()}
+          {item.author} · {dayjs(item.created_at).fromNow()}
         </span>
       </div>
     </Link>
@@ -111,7 +111,7 @@ const SearchBar = () => {
   const wrapperRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    fetch(`${API_URL}/news?limit=100`)
+    fetch(`${API_URL}news?limit=100`)
       .then(r => r.json())
       .then(data => setAllNews(data.newsList ?? []))
       .catch(console.error)
@@ -227,7 +227,7 @@ const SearchBar = () => {
           </div>
           <ul className='flex flex-col py-1 max-h-[70vh] overflow-y-auto divide-y divide-white/5'>
             {results.map(item => (
-              <ResultItem key={item._id} item={item} query={value} onSelect={handleSelect} />
+              <ResultItem key={item.id} item={item} query={value} onSelect={handleSelect} />
             ))}
           </ul>
         </div>
