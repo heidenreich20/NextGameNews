@@ -1,4 +1,5 @@
 'use client'
+import { JSX } from 'react';
 import '../globals.css'
 import Link from 'next/link'
 
