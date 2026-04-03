@@ -1,4 +1,3 @@
-// tests/components/ArticleCard.test.tsx
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import ArticleCard from '../../app/utils/ArticleCard'
@@ -16,12 +15,10 @@ describe('ArticleCard', () => {
   it('renders title, author, category and time', () => {
     render(<ArticleCard {...mockProps} />)
 
-    // Title renders in both mobile overlay and desktop block — use getAllByText
     const titles = screen.getAllByText('Valorant - Modo Premier')
     expect(titles.length).toBeGreaterThan(0)
 
     expect(screen.getByText('Pablo')).toBeInTheDocument()
-    // Category also renders twice — same fix
     expect(screen.getAllByText('FPS').length).toBeGreaterThan(0)
     expect(screen.getByText('hace 2 horas')).toBeInTheDocument()
   })

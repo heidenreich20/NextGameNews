@@ -1,16 +1,14 @@
-// tests/components/SearchBar.test.tsx
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import SearchBar from '../../app/utils/SearchBar'
 
 const mockNews = [
-  { _id: '1', title: 'Valorant Premier Mode', category: 'FPS',    author: 'Pablo', image: 'https://img.com/1.jpg', createdAt: new Date().toISOString(), text: '', type: 'Noticia',  console: [] },
-  { _id: '2', title: 'Elden Ring DLC Review', category: 'RPG',    author: 'Ana',   image: 'https://img.com/2.jpg', createdAt: new Date().toISOString(), text: '', type: 'Análisis', console: [] },
-  { _id: '3', title: 'FIFA 25 Analysis',      category: 'Sports', author: 'Luis',  image: 'https://img.com/3.jpg', createdAt: new Date().toISOString(), text: '', type: 'Análisis', console: [] },
+  { id: '1', title: 'Valorant Premier Mode', category: 'FPS',    author: 'Pablo', image: 'https://img.com/1.jpg', created_at: new Date().toISOString(), text: '', type: 'Noticia',  console: [] },
+  { id: '2', title: 'Elden Ring DLC Review', category: 'RPG',    author: 'Ana',   image: 'https://img.com/2.jpg', created_at: new Date().toISOString(), text: '', type: 'Análisis', console: [] },
+  { id: '3', title: 'FIFA 25 Analysis',      category: 'Sports', author: 'Luis',  image: 'https://img.com/3.jpg', created_at: new Date().toISOString(), text: '', type: 'Análisis', console: [] },
 ]
 
-// Matches text that is split across multiple child elements (e.g. HighlightMatch)
 const byTextContent = (text: string) => (_: string, element: Element | null) => {
   if (!element) return false
   return element.textContent?.replace(/\s+/g, ' ').trim() === text
@@ -36,7 +34,6 @@ describe('SearchBar', () => {
     await userEvent.type(screen.getByPlaceholderText('Buscar...'), 'valorant')
 
     await waitFor(() => {
-      // Use the custom matcher since HighlightMatch splits text into individual spans
       expect(screen.getByText(byTextContent('Valorant Premier Mode'))).toBeInTheDocument()
     })
   })
@@ -58,7 +55,6 @@ describe('SearchBar', () => {
 
     await userEvent.type(screen.getByPlaceholderText('Buscar...'), 'valorant')
 
-    // Wait for result to appear using the same custom matcher
     await waitFor(() => {
       expect(screen.getByText(byTextContent('Valorant Premier Mode'))).toBeInTheDocument()
     })
