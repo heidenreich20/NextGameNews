@@ -1,6 +1,6 @@
 'use client'
 import '../globals.css'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { navigationLinks } from '../components/Navbar'
 import Link from 'next/link'
 
@@ -13,7 +13,7 @@ interface SocialLink {
   href: string
   label: string
   hoverColor: string
-  Icon: () => JSX.Element
+  Icon: () => React.JSX.Element
 }
 
 const CloseIcon = () => (

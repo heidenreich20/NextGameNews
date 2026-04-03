@@ -1,5 +1,5 @@
 'use client'
-import { JSX } from 'react';
+import React from 'react'
 import '../globals.css'
 import Link from 'next/link'
 
@@ -46,7 +46,7 @@ interface SocialLink {
   href: string
   label: string
   hoverColor: string
-  Icon: () => JSX.Element
+  Icon: () => React.JSX.Element
 }
 
 const socialLinks: SocialLink[] = [
