@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react'
 import '../globals.css'
 import { Swiper, SwiperSlide } from 'swiper/react'
+// @ts-ignore
+import 'swiper/css'
 import { Autoplay } from 'swiper/modules'
 import BigNews from '../utils/BigNews'
 import SmallNews from '../utils/SmallNews'

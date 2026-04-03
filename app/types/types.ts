@@ -30,3 +30,11 @@ export interface CategoryResponse {
 export interface ArticleResponse {
   article: NewsItem
 }
+
+export interface SearchResponse {
+  newsList:       NewsItem[]
+  totalNewsCount: number
+  currentPage:    number
+  totalPages:     number
+  hasNextPage:    boolean
+}
