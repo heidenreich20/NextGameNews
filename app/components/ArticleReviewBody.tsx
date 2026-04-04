@@ -124,9 +124,11 @@ const ArticleReviewBody = ({ article }: ArticleReviewBodyProps) => (
         fontSize: 'clamp(0.95rem, 1.4vw, 1.08rem)',
       }}
     >
-      <ReactMarkdown className='prose-article'>
-        {article.text ?? ''}
-      </ReactMarkdown>
+      <div className='prose-article'>
+        <ReactMarkdown>
+          {article.text ?? ''}
+        </ReactMarkdown>
+      </div>
     </div>
     <div className='max-w-3xl mx-auto px-6 sm:px-16 pb-16'>
       <hr className='gold-rule' style={{ opacity: 0.3 }} />

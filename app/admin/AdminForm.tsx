@@ -8,7 +8,7 @@ const API_URL = process.env.API_URL
 const CONSOLE_OPTIONS = ['PlayStation', 'Xbox', 'Nintendo', 'PC'] as const
 
 type FormState = Omit<NewsItem, 'id' | 'created_at' | 'updated_at'>
-type Tab       = 'write' | 'preview'
+type Tab = 'write' | 'preview'
 
 const EMPTY_FORM: FormState = {
   title: '', text: '', image: '', category: '', author: '', type: 'Noticia', console: [],
@@ -37,17 +37,17 @@ const MarkdownEditor = ({
   const [tab, setTab] = useState<Tab>('write')
 
   const tabStyle = (active: boolean): React.CSSProperties => ({
-    fontFamily:      'var(--font-article)',
-    fontSize:        '0.65rem',
-    letterSpacing:   '0.15em',
-    textTransform:   'uppercase',
-    padding:         '0.4rem 1rem',
-    cursor:          'pointer',
-    border:          'none',
-    borderBottom:    active ? '2px solid var(--color-primary-lt)' : '2px solid transparent',
-    background:      'transparent',
-    color:           active ? 'var(--color-primary-lt)' : 'rgba(232,213,163,0.35)',
-    transition:      'all 0.15s',
+    fontFamily: 'var(--font-article)',
+    fontSize: '0.65rem',
+    letterSpacing: '0.15em',
+    textTransform: 'uppercase',
+    padding: '0.4rem 1rem',
+    cursor: 'pointer',
+    border: 'none',
+    borderBottom: active ? '2px solid var(--color-primary-lt)' : '2px solid transparent',
+    background: 'transparent',
+    color: active ? 'var(--color-primary-lt)' : 'rgba(232,213,163,0.35)',
+    transition: 'all 0.15s',
   })
 
   return (
@@ -72,11 +72,11 @@ const MarkdownEditor = ({
           placeholder={`# Título\n\nEscribe tu artículo en **Markdown**...\n\n## Sección\n\nTexto...`}
           style={{
             ...inputStyle,
-            borderRadius:  '0 4px 4px 4px',
-            resize:        'vertical',
-            lineHeight:    '1.7',
-            fontFamily:    'monospace',
-            fontSize:      '0.85rem',
+            borderRadius: '0 4px 4px 4px',
+            resize: 'vertical',
+            lineHeight: '1.7',
+            fontFamily: 'monospace',
+            fontSize: '0.85rem',
           }}
           required
         />
@@ -87,12 +87,16 @@ const MarkdownEditor = ({
           style={{
             ...inputStyle,
             borderRadius: '0 4px 4px 4px',
-            minHeight:    '300px',
-            fontSize:     'clamp(0.95rem, 1.4vw, 1.08rem)',
+            minHeight: '300px',
+            fontSize: 'clamp(0.95rem, 1.4vw, 1.08rem)',
           }}
         >
           {value
-            ? <ReactMarkdown className='prose-article'>{value}</ReactMarkdown>
+            ? (
+              <div className='prose-article'>
+                <ReactMarkdown >{value}</ReactMarkdown>
+              </div>
+            )
             : <p style={{ color: 'rgba(232,213,163,0.25)', fontStyle: 'italic' }}>Nada que previsualizar aún...</p>
           }
         </div>
@@ -107,21 +111,21 @@ const MarkdownEditor = ({
         <div
           className='mt-2 p-3 rounded text-[0.75rem] grid grid-cols-2 gap-x-6 gap-y-1'
           style={{
-            background:  'rgba(184,151,42,0.04)',
-            border:      '1px solid rgba(184,151,42,0.15)',
-            fontFamily:  'monospace',
-            color:       'rgba(232,213,163,0.5)',
+            background: 'rgba(184,151,42,0.04)',
+            border: '1px solid rgba(184,151,42,0.15)',
+            fontFamily: 'monospace',
+            color: 'rgba(232,213,163,0.5)',
           }}
         >
           {[
-            ['# Título',        'H1'],
-            ['## Subtítulo',    'H2'],
-            ['**negrita**',     'Negrita'],
-            ['*cursiva*',       'Cursiva'],
-            ['> cita',          'Cita'],
-            ['`código`',        'Código'],
-            ['---',             'Separador'],
-            ['[texto](url)',    'Enlace'],
+            ['# Título', 'H1'],
+            ['## Subtítulo', 'H2'],
+            ['**negrita**', 'Negrita'],
+            ['*cursiva*', 'Cursiva'],
+            ['> cita', 'Cita'],
+            ['`código`', 'Código'],
+            ['---', 'Separador'],
+            ['[texto](url)', 'Enlace'],
           ].map(([syntax, label]) => (
             <div key={syntax} className='flex gap-2'>
               <span style={{ color: 'var(--color-primary-lt)' }}>{syntax}</span>
@@ -134,9 +138,9 @@ const MarkdownEditor = ({
   )
 }
 export default function AdminForm() {
-  const [form,    setForm   ] = useState<FormState>(EMPTY_FORM)
-  const [apiKey,  setApiKey ] = useState('')
-  const [status,  setStatus ] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [form, setForm] = useState<FormState>(EMPTY_FORM)
+  const [apiKey, setApiKey] = useState('')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [message, setMessage] = useState('')
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -157,9 +161,9 @@ export default function AdminForm() {
     setStatus('loading')
     try {
       const res = await fetch(`${API_URL}/news`, {
-        method:  'POST',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
-        body:    JSON.stringify(form),
+        body: JSON.stringify(form),
       })
       const data = await res.json()
       if (!res.ok) { setStatus('error'); setMessage(data.error ?? 'Error desconocido'); return }
@@ -233,9 +237,9 @@ export default function AdminForm() {
                 className='px-3 py-1 text-xs rounded transition-all duration-150'
                 style={{
                   fontFamily: 'var(--font-article)',
-                  border:     '1px solid rgba(184,151,42,0.35)',
+                  border: '1px solid rgba(184,151,42,0.35)',
                   background: form.console.includes(name) ? 'var(--color-primary)' : 'transparent',
-                  color:      form.console.includes(name) ? 'var(--color-secondary)' : 'var(--color-cream)',
+                  color: form.console.includes(name) ? 'var(--color-secondary)' : 'var(--color-cream)',
                 }}>
                 {name}
               </button>
@@ -251,8 +255,8 @@ export default function AdminForm() {
           <p className='text-sm px-3 py-2 rounded' style={{
             fontFamily: 'var(--font-article)',
             background: status === 'success' ? 'rgba(184,151,42,0.1)' : 'rgba(220,38,38,0.1)',
-            border:     `1px solid ${status === 'success' ? 'rgba(184,151,42,0.3)' : 'rgba(220,38,38,0.3)'}`,
-            color:      status === 'success' ? 'var(--color-primary-lt)' : '#f87171',
+            border: `1px solid ${status === 'success' ? 'rgba(184,151,42,0.3)' : 'rgba(220,38,38,0.3)'}`,
+            color: status === 'success' ? 'var(--color-primary-lt)' : '#f87171',
           }}>
             {message}
           </p>
