@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ESNext", 
+    "target": "esnext",
     "lib": [
       "dom",
       "dom.iterable",
@@ -33,9 +33,11 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.js",
-    "**/*.jsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "app/layout.jsx",
+    "app/components/Navbar.jsx",
+    "app/components/Navbar.jsx",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
