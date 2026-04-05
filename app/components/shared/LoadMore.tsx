@@ -5,11 +5,11 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/es'
 import { NewsItem } from '@/types/types'
+import { fetchNews } from '@/lib/api'
 
 dayjs.locale('es')
 dayjs.extend(relativeTime)
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL
 const LOAD_STEP = 10
 
 interface LoadMoreProps {
@@ -32,11 +32,8 @@ const LoadMore = ({ initialCount, totalNewsCount }: LoadMoreProps) => {
     setError(null)
 
     try {
-      const res = await fetch(`${API_URL}/news?page=${page}&limit=${LOAD_STEP}`)
-      if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`)
-
-      const data = await res.json()
-      const fetched: NewsItem[] = data.newsList ?? []
+      const data = await fetchNews({ page, limit: LOAD_STEP })
+      const fetched = data.newsList
 
       if (fetched.length > 0) {
         setExtraNews(prev => [...prev, ...fetched])

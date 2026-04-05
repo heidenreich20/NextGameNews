@@ -1,6 +1,6 @@
 import ArticleCardList from '@/components/home/ArticleCardList'
 import LoadMore from '@/components/shared/LoadMore'
-import AnalysisSidebar from '@/components/arcticle/AnalysisSidebar'
+import AnalysisSidebar from '@/components/article/AnalysisSidebar'
 import { NewsItem } from '@/types/types'
 
 // ── Section header ────────────────────────────────────────────────────────────
@@ -49,7 +49,7 @@ const NewsFeed = ({ newsList, analysisList, totalNewsCount }: NewsFeedProps) => 
           initialCount={newsList.length}
         />
       </div>
-      <AnalysisSidebar analysisList={analysisList} />
+      <AnalysisSidebar items={analysisList} />
     </div>
   </section>
 )

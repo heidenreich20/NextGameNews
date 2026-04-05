@@ -1,8 +1,7 @@
 import Link from 'next/link'
-import AnalysisGrid from './AnalysisGrid'
-import { NewsItem } from '../../types/types'
+import AnalysisGrid, { AnalysisItem } from './AnalysisGrid'
 
-const AnalysisSidebar = ({ analysisList }: { analysisList: NewsItem[] }) => (
+const AnalysisSidebar = ({ items }: { items: AnalysisItem[] }) => (
   <aside
     className='hidden md:flex flex-col rounded-lg overflow-hidden'
     style={{ border: '1px solid rgba(184,151,42,0.2)', background: 'var(--color-surface)' }}
@@ -16,7 +15,7 @@ const AnalysisSidebar = ({ analysisList }: { analysisList: NewsItem[] }) => (
       </h2>
     </div>
     <div className='flex-1 p-2'>
-      <AnalysisGrid items={analysisList} />
+      <AnalysisGrid items={items} />
     </div>
     <div style={{ borderTop: '1px solid rgba(184,151,42,0.15)' }}>
       <Link

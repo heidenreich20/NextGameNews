@@ -19,22 +19,6 @@ export interface NewsListResponse {
   hasNextPage: boolean;
 }
 
-export interface CategoryResponse {
-  newsList: NewsItem[];
-  totalNewsCount: number;
-  currentPage: number;
-  totalPages: number;
-  hasNextPage: boolean;
-}
-
 export interface ArticleResponse {
   article: NewsItem;
-}
-
-export interface SearchResponse {
-  newsList: NewsItem[];
-  totalNewsCount: number;
-  currentPage: number;
-  totalPages: number;
-  hasNextPage: boolean;
 }

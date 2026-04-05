@@ -1,10 +1,9 @@
 'use client'
-import '../globals.css'
 import { useState, useCallback } from 'react'
 import ReactMarkdown from 'react-markdown'
-import { NewsItem } from '../types/types'
+import { NewsItem } from '@/types/types'
+import { createArticle } from '@/lib/api'
 
-const API_URL = process.env.API_URL
 const CONSOLE_OPTIONS = ['PlayStation', 'Xbox', 'Nintendo', 'PC'] as const
 
 type FormState = Omit<NewsItem, 'id' | 'createdAt' | 'updatedAt'>
@@ -160,19 +159,13 @@ export default function AdminForm() {
     e.preventDefault()
     setStatus('loading')
     try {
-      const res = await fetch(`${API_URL}/news`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
-        body: JSON.stringify(form),
-      })
-      const data = await res.json()
-      if (!res.ok) { setStatus('error'); setMessage(data.error ?? 'Error desconocido'); return }
+      const article = await createArticle(form, apiKey)
       setStatus('success')
-      setMessage(`✓ Artículo creado: ${data.article.title}`)
+      setMessage(`✓ Artículo creado: ${article.title}`)
       setForm(EMPTY_FORM)
-    } catch {
+    } catch (err: any) {
       setStatus('error')
-      setMessage('No se pudo conectar con el servidor')
+      setMessage(err?.message ?? 'No se pudo conectar con el servidor')
     }
   }
 

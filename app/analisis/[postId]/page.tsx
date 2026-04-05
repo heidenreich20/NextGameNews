@@ -1,14 +1,15 @@
 import { notFound } from 'next/navigation'
 import { fetchArticle } from '@/lib/api'
-import ArticlePage from '@/components/arcticle/ArticlePage'
+import ArticlePage from '@/components/article/ArticlePage'
+import { cache } from 'react'
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
-async function getArticle(postId: string) {
+const getArticle = cache(async (postId: string) => {
   const article = await fetchArticle(postId)
   if (!article) notFound()
   return article
-}
+})
 
 // ── Metadata ──────────────────────────────────────────────────────────────────
 

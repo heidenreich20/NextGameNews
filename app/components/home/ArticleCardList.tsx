@@ -1,22 +1,11 @@
 import ArticleCard from './ArticleCard'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import { NewsItem } from '@/types/types'
 import 'dayjs/locale/es'
 
 dayjs.locale('es')
 dayjs.extend(relativeTime)
-
-interface NewsItem {
-  id:         string
-  title:      string
-  text:       string
-  image:      string
-  author:     string
-  category:   string
-  type:       string
-  console:    string[]
-  createdAt: string
-}
 
 const ArticleCardList = ({ articles = [] }: { articles: NewsItem[] }) => {
 

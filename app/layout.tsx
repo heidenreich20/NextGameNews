@@ -2,8 +2,7 @@ import './globals.css'
 import type { Metadata, Viewport } from 'next'
 import Header from '@/components/layout/Header'
 import Navbar from '@/components/layout/Navbar'
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+import { pingHealth } from '@/lib/api'
 
 export const metadata: Metadata = {
   title: 'Next Game News | El Nexo del Gaming',
@@ -21,7 +20,7 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-fetch(`${API_URL}/health`).catch(() => { })
+pingHealth()
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
