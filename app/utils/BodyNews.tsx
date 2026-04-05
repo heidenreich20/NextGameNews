@@ -15,7 +15,7 @@ interface NewsItem {
   category:   string
   type:       string
   console:    string[]
-  created_at: string
+  createdAt: string
 }
 
 const BodyNews = ({ articles = [] }: { articles: NewsItem[] }) => {
@@ -26,11 +26,11 @@ const BodyNews = ({ articles = [] }: { articles: NewsItem[] }) => {
 
   return (
     <ul className='flex flex-col gap-2 col-span-2 p-3 csm:px-0 py-4'>
-      {articles.map(({ created_at, id, ...rest }) => (
+      {articles.map(({ createdAt, id, ...rest }) => (
         <ArticleCard
           key={id}
           id={id}
-          time={dayjs(created_at).fromNow()}
+          time={dayjs(createdAt).fromNow()}
           {...rest}
         />
       ))}

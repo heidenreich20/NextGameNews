@@ -26,7 +26,7 @@ const getNews = async (): Promise<{ allNews: NewsItem[]; totalNewsCount: number 
 
 export default async function Page() {
   const { allNews, totalNewsCount } = await getNews()
-
+  console.log(allNews)
   const bannerNews = allNews.slice(0, 6)
   const analysisList = allNews
     .filter((n) => n.type === 'Análisis')

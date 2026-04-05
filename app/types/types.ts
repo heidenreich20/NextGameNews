@@ -8,8 +8,8 @@ export interface NewsItem {
   category:    string
   type:        string
   console:     string[]
-  created_at:  string
-  updated_at?: string
+  createdAt:  string
+  updatedAt?: string
 }
 
 export interface NewsListResponse {
