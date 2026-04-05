@@ -18,7 +18,7 @@ interface NewsItem {
   createdAt: string
 }
 
-const BodyNews = ({ articles = [] }: { articles: NewsItem[] }) => {
+const ArticleCardList = ({ articles = [] }: { articles: NewsItem[] }) => {
 
   if (articles.length === 0) {
     return <div className="p-10 text-center opacity-50">No hay noticias disponibles</div>
@@ -38,4 +38,4 @@ const BodyNews = ({ articles = [] }: { articles: NewsItem[] }) => {
   )
 }
 
-export default BodyNews
+export default ArticleCardList

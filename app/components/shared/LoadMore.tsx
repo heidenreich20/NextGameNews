@@ -1,10 +1,10 @@
 'use client'
 import { useState, useCallback } from 'react'
-import ArticleCard from './ArticleCard'
+import ArticleCard from '@/components/home/ArticleCard'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/es'
-import { NewsItem } from '../types/types'
+import { NewsItem } from '@/types/types'
 
 dayjs.locale('es')
 dayjs.extend(relativeTime)
@@ -12,12 +12,12 @@ dayjs.extend(relativeTime)
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 const LOAD_STEP = 10
 
-interface LoadMoreButtonProps {
+interface LoadMoreProps {
   initialCount: number
   totalNewsCount: number
 }
 
-const LoadMoreButton = ({ initialCount, totalNewsCount }: LoadMoreButtonProps) => {
+const LoadMore = ({ initialCount, totalNewsCount }: LoadMoreProps) => {
   const [extraNews, setExtraNews] = useState<NewsItem[]>([])
   const [page, setPage] = useState(2)
   const [loading, setLoading] = useState(false)
@@ -122,4 +122,4 @@ const LoadMoreButton = ({ initialCount, totalNewsCount }: LoadMoreButtonProps) =
   )
 }
 
-export default LoadMoreButton
+export default LoadMore

@@ -1,10 +1,10 @@
 'use client'
-import '../globals.css'
 import React, { useEffect } from 'react'
-import { navigationLinks } from '../components/Navbar'
+import { navigationLinks } from './Navbar'
 import Link from 'next/link'
 
-interface DrawerComponentProps {
+interface Drawer {
+  id: string
   open: boolean
   onClose: () => void
 }
@@ -74,7 +74,7 @@ const SocialButton = ({ href, Icon, label, hoverColor }: SocialLink) => {
   )
 }
 
-const DrawerComponent = ({ open, onClose }: DrawerComponentProps) => {
+const DrawerComponent = ({ open, onClose }: Drawer) => {
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }

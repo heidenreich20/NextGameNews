@@ -1,20 +1,22 @@
 'use client'
-import '../globals.css'
 import { useState, useCallback, useEffect, useRef, useId } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/es'
-import { NewsItem } from '../types/types'
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+import { fetchAllNews } from '@/lib/api'
+import { NewsItem } from '@/types/types'
 
 dayjs.locale('es')
 dayjs.extend(relativeTime)
 
+// ── Constants ─────────────────────────────────────────────────────────────────
+
 const DEBOUNCE_MS = 300
 const MAX_RESULTS = 6
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
 
 const fuzzyMatch = (needle: string, haystack: string): boolean => {
   const n = needle.toLowerCase()
@@ -26,6 +28,24 @@ const fuzzyMatch = (needle: string, haystack: string): boolean => {
   }
   return false
 }
+
+// ── Sub-components ────────────────────────────────────────────────────────────
+
+const SearchIcon = () => (
+  <svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24'
+    fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' aria-hidden>
+    <circle cx='11' cy='11' r='8' /><line x1='21' y1='21' x2='16.65' y2='16.65' />
+  </svg>
+)
+
+const Spinner = () => (
+  <div
+    className='h-4 w-4 rounded-full border-2 animate-spin'
+    style={{ borderColor: 'var(--color-secondary)', borderTopColor: 'transparent' }}
+    role='status'
+    aria-label='Buscando'
+  />
+)
 
 const HighlightMatch = ({ text, query }: { text: string; query: string }) => {
   if (!query) return <>{text}</>
@@ -45,20 +65,13 @@ const HighlightMatch = ({ text, query }: { text: string; query: string }) => {
   )
 }
 
-const SearchIcon = () => (
-  <svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24'
-    fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' aria-hidden>
-    <circle cx='11' cy='11' r='8' /><line x1='21' y1='21' x2='16.65' y2='16.65' />
-  </svg>
-)
+interface ResultItemProps {
+  item:     NewsItem
+  query:    string
+  onSelect: () => void
+}
 
-const Spinner = () => (
-  <div className='h-4 w-4 rounded-full border-2 border-t-transparent animate-spin'
-    style={{ borderColor: 'var(--color-secondary)', borderTopColor: 'transparent' }}
-    role='status' aria-label='Buscando' />
-)
-
-const ResultItem = ({ item, query, onSelect }: { item: NewsItem; query: string; onSelect: () => void }) => (
+const ResultItem = ({ item, query, onSelect }: ResultItemProps) => (
   <li>
     <Link
       href={`/analisis/${item.id}`}
@@ -73,7 +86,6 @@ const ResultItem = ({ item, query, onSelect }: { item: NewsItem; query: string; 
           fill
           sizes='80px'
           className='object-cover'
-          priority
         />
       </div>
       <div className='flex flex-col justify-between min-w-0 py-0.5'>
@@ -102,20 +114,19 @@ const ResultItem = ({ item, query, onSelect }: { item: NewsItem; query: string; 
   </li>
 )
 
+// ── SearchBar ─────────────────────────────────────────────────────────────────
+
 const SearchBar = () => {
-  const [value, setValue] = useState('')
-  const [results, setResults] = useState<NewsItem[]>([])
-  const [allNews, setAllNews] = useState<NewsItem[]>([])
-  const [loading, setLoading] = useState(false)
-  const [open, setOpen] = useState(false)
-  const inputId = useId()
+  const [value,    setValue]   = useState('')
+  const [results,  setResults] = useState<NewsItem[]>([])
+  const [allNews,  setAllNews] = useState<NewsItem[]>([])
+  const [loading,  setLoading] = useState(false)
+  const [open,     setOpen]    = useState(false)
+  const inputId    = useId()
   const wrapperRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    fetch(`${API_URL}news?limit=100`)
-      .then(r => r.json())
-      .then(data => setAllNews(data.newsList ?? []))
-      .catch(console.error)
+    fetchAllNews().then(setAllNews).catch(console.error)
   }, [])
 
   useEffect(() => {
@@ -133,7 +144,7 @@ const SearchBar = () => {
     setLoading(true)
     const matches = allNews
       .filter(item =>
-        fuzzyMatch(query, item.title) ||
+        fuzzyMatch(query, item.title)    ||
         fuzzyMatch(query, item.category) ||
         fuzzyMatch(query, item.author)
       )
@@ -155,13 +166,9 @@ const SearchBar = () => {
     setOpen(false)
   }, [])
 
-  const handleSelect = useCallback(() => {
-    handleClear()
-  }, [handleClear])
-
   return (
     <div ref={wrapperRef} className='relative flex flex-col'>
-      <div className="sr-only" aria-live="polite" aria-atomic="true">
+      <div className='sr-only' aria-live='polite' aria-atomic='true'>
         {value && `${results.length} resultado${results.length !== 1 ? 's' : ''} encontrados`}
       </div>
 
@@ -182,11 +189,11 @@ const SearchBar = () => {
             aria-haspopup='listbox'
             className='w-40 csm:w-52 focus:w-52 csm:focus:w-64 py-1 pl-3 pr-7 text-sm outline-none transition-all duration-200'
             style={{
-              background: 'var(--color-surface)',
-              border: '1px solid rgba(184,151,42,0.25)',
+              background:   'var(--color-surface)',
+              border:       '1px solid rgba(184,151,42,0.25)',
               borderRadius: '4px 0 0 4px',
-              color: 'var(--color-cream)',
-              fontFamily: 'var(--font-article)',
+              color:        'var(--color-cream)',
+              fontFamily:   'var(--font-article)',
             }}
           />
           {value && (
@@ -206,15 +213,16 @@ const SearchBar = () => {
           aria-label='Ejecutar búsqueda'
           className='flex items-center justify-center px-2.5 h-7.5 transition-opacity duration-200 hover:opacity-80'
           style={{
-            background: 'var(--color-primary)',
-            border: '1px solid var(--color-primary)',
+            background:   'var(--color-primary)',
+            border:       '1px solid var(--color-primary)',
             borderRadius: '0 4px 4px 0',
-            color: 'var(--color-secondary)',
+            color:        'var(--color-secondary)',
           }}
         >
           {loading ? <Spinner /> : <SearchIcon />}
         </button>
       </form>
+
       {open && results.length > 0 && (
         <div
           className='absolute top-full left-0 mt-1 w-80 z-50 rounded overflow-hidden shadow-2xl'
@@ -222,7 +230,7 @@ const SearchBar = () => {
         >
           <div className='px-3 py-2' style={{ borderBottom: '1px solid rgba(184,151,42,0.15)' }}>
             <span
-              aria-hidden="true"
+              aria-hidden
               className='text-[0.6rem] tracking-[0.2em] uppercase'
               style={{ fontFamily: 'var(--font-article)', color: 'var(--color-primary-lt)' }}
             >
@@ -234,7 +242,7 @@ const SearchBar = () => {
             className='flex flex-col py-1 max-h-[70vh] overflow-y-auto divide-y divide-white/5'
           >
             {results.map(item => (
-              <ResultItem key={item.id} item={item} query={value} onSelect={handleSelect} />
+              <ResultItem key={item.id} item={item} query={value} onSelect={handleClear} />
             ))}
           </ul>
         </div>

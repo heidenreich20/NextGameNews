@@ -1,10 +1,9 @@
-import '../globals.css'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/es'
-import { NewsItem } from '../types/types'
+import { NewsItem } from '../../types/types'
 
 dayjs.locale('es')
 dayjs.extend(relativeTime)

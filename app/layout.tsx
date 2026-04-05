@@ -1,7 +1,7 @@
 import './globals.css'
 import type { Metadata, Viewport } from 'next'
-import Header from './components/Header'
-import Navbar from './components/Navbar'
+import Header from '@/components/layout/Header'
+import Navbar from '@/components/layout/Navbar'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 

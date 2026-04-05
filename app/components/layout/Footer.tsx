@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-import '../globals.css'
 import Link from 'next/link'
 
 const FooterLink = ({ href, label, children }: { href: string; label: string; children: React.ReactNode }) => (

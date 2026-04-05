@@ -1,6 +1,5 @@
-import '../globals.css'
 import Link from 'next/link'
-import SearchBar from '../utils/SearchBar'
+import SearchBar from '@/components/shared/SearchBar'
 
 export const navigationLinks = [
   { name: 'Noticias', href: '/' },

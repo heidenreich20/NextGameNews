@@ -1,12 +1,11 @@
 'use client'
 import { useState, useEffect } from 'react'
-import '../globals.css'
 import { Swiper, SwiperSlide } from 'swiper/react'
 // @ts-ignore
 import 'swiper/css'
 import { Autoplay } from 'swiper/modules'
-import BigNews from '../utils/BigNews'
-import SmallNews from '../utils/SmallNews'
+import BigNews from '@/utils/BigNews'
+import SmallNews from '@/utils/SmallNews'
 
 const Banner = ({ newsList = [] }: { newsList: any[] }) => {
   const [mounted, setMounted] = useState(false)
@@ -35,7 +34,7 @@ const Banner = ({ newsList = [] }: { newsList: any[] }) => {
           }}
         >
           {newsList.map((news) => (
-            <SwiperSlide key={news._id}>
+            <SwiperSlide key={news.id}>
               <BigNews
                 type={news.type}
                 console={news.console}
@@ -58,10 +57,10 @@ const Banner = ({ newsList = [] }: { newsList: any[] }) => {
           <div className='csm:w-3/4 mx-auto px-3 csm:px-0 flex gap-4'>
             {newsList.slice(2, 6).map((news, index) => (
               <SmallNews
-                key={news._id ?? index}
+                key={news.id ?? index}
                 image={news.image}
                 text={news.title}
-                href={`/analisis/${news._id}`}
+                href={`/analisis/${news.id}`}
                 priority={index === 0}
               />
             ))}
