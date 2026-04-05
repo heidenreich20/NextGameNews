@@ -179,6 +179,7 @@ const SearchBar = () => {
             id={inputId}
             type='text'
             value={value}
+            role='combobox'
             onChange={e => setValue(e.target.value)}
             onFocus={() => results.length > 0 && setOpen(true)}
             placeholder='Buscar...'
@@ -238,6 +239,7 @@ const SearchBar = () => {
             </span>
           </div>
           <ul
+            role='listbox'
             id='search-results-list'
             className='flex flex-col py-1 max-h-[70vh] overflow-y-auto divide-y divide-white/5'
           >
