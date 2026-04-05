@@ -3,6 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import Header from '@/components/layout/Header'
 import Navbar from '@/components/layout/Navbar'
 import { pingHealth } from '@/lib/api'
+// 1. Import your fonts
+import { bebasNeue, goldman, georgia } from './fonts'
 
 export const metadata: Metadata = {
   title: 'Next Game News | El Nexo del Gaming',
@@ -24,7 +26,11 @@ pingHealth()
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='es' suppressHydrationWarning>
+    <html 
+      lang='es' 
+      suppressHydrationWarning 
+      className={`${bebasNeue.variable} ${goldman.variable} ${georgia.variable}`}
+    >
       <body className='antialiased min-h-screen flex flex-col bg-secondary'>
         <Header />
         <Navbar />

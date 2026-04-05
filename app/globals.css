@@ -14,11 +14,6 @@
   --color-facebook:  #3b5998;
   --color-instagram: #C13584;
 
-  /* ── Typography ── */
-  --font-logo:    "Goldman_regular", sans-serif;
-  --font-title:   "Bebas Neue", sans-serif;
-  --font-article: "Georgia", serif;
-
   /* ── Shadows ── */
   --shadow-3xl: 0 60px 120px -5px rgba(0, 0, 0, 0.5);
   --shadow-gold: 0 0 0 1px rgba(184, 151, 42, 0.3);
@@ -28,23 +23,6 @@
   --breakpoint-csm: 720px;
   --breakpoint-cmd: 850px;
   --breakpoint-md:  1150px;
-}
-
-/* ── Fonts ── */
-@font-face {
-  font-display: swap;
-  font-family: 'Goldman_regular';
-  src: url('/fonts/Goldman-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-display: swap;
-  font-family: 'Bebas Neue';
-  src: url('/fonts/BebasNeue-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
 }
 
 /* ── Base ── */
