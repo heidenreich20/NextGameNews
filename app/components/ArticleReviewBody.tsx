@@ -87,7 +87,7 @@ const ArticleReviewBody = ({ article }: ArticleReviewBodyProps) => (
         >
           {article.title}
         </h1>
-        <ArticleMeta author={article.author} createdAt={article.created_at} />
+        <ArticleMeta author={article.author} createdAt={article.createdAt} />
       </div>
     </div>
     <div className='px-6 sm:px-16'>

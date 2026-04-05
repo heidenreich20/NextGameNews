@@ -65,7 +65,7 @@ const LoadMoreButton = ({ initialCount, totalNewsCount }: LoadMoreButtonProps) =
               image={item.image}
               author={item.author}
               category={item.category}
-              time={dayjs(item.created_at).fromNow()}
+              time={dayjs(item.createdAt).fromNow()}
               priority={index === 0}
             />
           ))}

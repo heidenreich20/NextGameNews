@@ -95,7 +95,7 @@ const ResultItem = ({ item, query, onSelect }: { item: NewsItem; query: string; 
           className='text-[0.65rem] mt-1'
           style={{ fontFamily: 'var(--font-article)', color: 'rgba(232,213,163,0.35)' }}
         >
-          {item.author} · {dayjs(item.created_at).fromNow()}
+          {item.author} · {dayjs(item.createdAt).fromNow()}
         </span>
       </div>
     </Link>

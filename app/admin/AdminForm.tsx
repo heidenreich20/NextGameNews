@@ -7,7 +7,7 @@ import { NewsItem } from '../types/types'
 const API_URL = process.env.API_URL
 const CONSOLE_OPTIONS = ['PlayStation', 'Xbox', 'Nintendo', 'PC'] as const
 
-type FormState = Omit<NewsItem, 'id' | 'created_at' | 'updated_at'>
+type FormState = Omit<NewsItem, 'id' | 'createdAt' | 'updatedAt'>
 type Tab = 'write' | 'preview'
 
 const EMPTY_FORM: FormState = {
