@@ -1,20 +1,20 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import LoadMoreButton from '../../app/utils/LoadMoreButton'
+import LoadMore from '@/components/shared/LoadMore'
 
-describe('LoadMoreButton', () => {
+describe('LoadMore', () => {
   it('renders when there are more articles to load', () => {
-    render(<LoadMoreButton totalNewsCount={20} initialCount={10} />)
+    render(<LoadMore totalNewsCount={20} initialCount={10} />)
     expect(screen.getByText('Cargar más noticias')).toBeInTheDocument()
   })
 
   it('does not render when all articles are loaded', () => {
-    render(<LoadMoreButton totalNewsCount={10} initialCount={10} />)
+    render(<LoadMore totalNewsCount={10} initialCount={10} />)
     expect(screen.queryByText('Cargar más noticias')).not.toBeInTheDocument()
   })
 
   it('does not render when initialCount exceeds total', () => {
-    render(<LoadMoreButton totalNewsCount={5} initialCount={10} />)
+    render(<LoadMore totalNewsCount={5} initialCount={10} />)
     expect(screen.queryByText('Cargar más noticias')).not.toBeInTheDocument()
   })
 })

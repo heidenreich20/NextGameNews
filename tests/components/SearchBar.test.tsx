@@ -1,12 +1,22 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import SearchBar from '../../app/utils/SearchBar'
+import SearchBar from '@/components/shared/SearchBar'
+
+// ── Mock api.ts ───────────────────────────────────────────────────────────────
+
+vi.mock('@/lib/api', () => ({
+  fetchAllNews: vi.fn(),
+}))
+
+import { fetchAllNews } from '@/lib/api'
+
+// ── Fixtures ──────────────────────────────────────────────────────────────────
 
 const mockNews = [
-  { id: '1', title: 'Valorant Premier Mode', category: 'FPS',    author: 'Pablo', image: 'https://img.com/1.jpg', created_at: new Date().toISOString(), text: '', type: 'Noticia',  console: [] },
-  { id: '2', title: 'Elden Ring DLC Review', category: 'RPG',    author: 'Ana',   image: 'https://img.com/2.jpg', created_at: new Date().toISOString(), text: '', type: 'Análisis', console: [] },
-  { id: '3', title: 'FIFA 25 Analysis',      category: 'Sports', author: 'Luis',  image: 'https://img.com/3.jpg', created_at: new Date().toISOString(), text: '', type: 'Análisis', console: [] },
+  { id: '1', title: 'Valorant Premier Mode', category: 'FPS',    author: 'Pablo', image: 'https://img.com/1.jpg', createdAt: new Date().toISOString(), text: '', type: 'Noticia',  console: [] },
+  { id: '2', title: 'Elden Ring DLC Review', category: 'RPG',    author: 'Ana',   image: 'https://img.com/2.jpg', createdAt: new Date().toISOString(), text: '', type: 'Análisis', console: [] },
+  { id: '3', title: 'FIFA 25 Analysis',      category: 'Sports', author: 'Luis',  image: 'https://img.com/3.jpg', createdAt: new Date().toISOString(), text: '', type: 'Análisis', console: [] },
 ]
 
 const byTextContent = (text: string) => (_: string, element: Element | null) => {
@@ -15,11 +25,10 @@ const byTextContent = (text: string) => (_: string, element: Element | null) => 
 }
 
 beforeEach(() => {
-  global.fetch = vi.fn().mockResolvedValue({
-    ok:   true,
-    json: () => Promise.resolve({ newsList: mockNews }),
-  } as Response)
+  vi.mocked(fetchAllNews).mockResolvedValue(mockNews)
 })
+
+// ── Tests ─────────────────────────────────────────────────────────────────────
 
 describe('SearchBar', () => {
   it('renders the search input', () => {
@@ -29,7 +38,7 @@ describe('SearchBar', () => {
 
   it('shows matching results after typing', async () => {
     render(<SearchBar />)
-    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1))
+    await waitFor(() => expect(fetchAllNews).toHaveBeenCalledTimes(1))
 
     await userEvent.type(screen.getByPlaceholderText('Buscar...'), 'valorant')
 
@@ -40,7 +49,7 @@ describe('SearchBar', () => {
 
   it('shows no results for unmatched query', async () => {
     render(<SearchBar />)
-    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1))
+    await waitFor(() => expect(fetchAllNews).toHaveBeenCalledTimes(1))
 
     await userEvent.type(screen.getByPlaceholderText('Buscar...'), 'zzzzzz')
 
@@ -51,7 +60,7 @@ describe('SearchBar', () => {
 
   it('clears results when the clear button is clicked', async () => {
     render(<SearchBar />)
-    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1))
+    await waitFor(() => expect(fetchAllNews).toHaveBeenCalledTimes(1))
 
     await userEvent.type(screen.getByPlaceholderText('Buscar...'), 'valorant')
 
@@ -68,23 +77,23 @@ describe('SearchBar', () => {
   })
 
   it('shows the correct result count label', async () => {
-  render(<SearchBar />)
-  await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1))
+    render(<SearchBar />)
+    await waitFor(() => expect(fetchAllNews).toHaveBeenCalledTimes(1))
 
-  await userEvent.type(screen.getByPlaceholderText('Buscar...'), 'valorant')
+    await userEvent.type(screen.getByPlaceholderText('Buscar...'), 'valorant')
 
-  await waitFor(() => {
-    const spans = document.querySelectorAll('span')
-    const countSpan = Array.from(spans).find(
-      s => s.textContent?.replace(/\s+/g, ' ').trim() === '1 resultado'
-    )
-    expect(countSpan).toBeTruthy()
+    await waitFor(() => {
+      const spans = document.querySelectorAll('span')
+      const countSpan = Array.from(spans).find(
+        s => s.textContent?.replace(/\s+/g, ' ').trim() === '1 resultado'
+      )
+      expect(countSpan).toBeTruthy()
+    })
   })
-})
 
   it('links each result to the correct article page', async () => {
     render(<SearchBar />)
-    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1))
+    await waitFor(() => expect(fetchAllNews).toHaveBeenCalledTimes(1))
 
     await userEvent.type(screen.getByPlaceholderText('Buscar...'), 'valorant')
 

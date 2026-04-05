@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import ArticleCard from '../../app/utils/ArticleCard'
+import ArticleCard from '@/components/home/ArticleCard'
 
 const mockProps = {
-  id:       '64058a72e034cab974a167e3',
+  id:       '123e4567-e89b-12d3-a456-426614174000',
   title:    'Valorant - Modo Premier',
   image:    'https://images.com/test.jpg',
   author:   'Pablo',
