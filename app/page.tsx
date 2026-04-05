@@ -23,6 +23,7 @@ const getNews = async (): Promise<{ allNews: NewsItem[]; totalNewsCount: number 
   }
 }
 
+
 export default async function Page() {
   const { allNews, totalNewsCount } = await getNews()
 

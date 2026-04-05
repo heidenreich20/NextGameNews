@@ -21,7 +21,7 @@ export const ArticleCard = ({ title, image, author, category, time, id, priority
         fill
         sizes='(max-width: 720px) 100vw, 240px'
         priority={priority}
-        loading={priority ? 'eager' : 'lazy'}
+        loading='eager'
         className='object-cover transition-transform duration-500 group-hover:scale-[1.04]'
       />
       <div className='absolute inset-0 csm:hidden flex flex-col justify-end p-3 z-10'
@@ -57,13 +57,13 @@ export const ArticleCard = ({ title, image, author, category, time, id, priority
       </Link>
       <div className='flex items-center justify-between mt-1'>
         <span
-          className='text-[0.75rem] text-white/45'
+          className='text-[0.75rem] text-primary'
           style={{ fontFamily: 'var(--font-article)' }}
         >
           {author}
         </span>
         <span
-          className='text-[0.7rem] tracking-wide text-white/25'
+          className='text-[0.7rem] tracking-wide text-white/65'
           style={{ fontFamily: 'var(--font-article)' }}
         >
           {time}

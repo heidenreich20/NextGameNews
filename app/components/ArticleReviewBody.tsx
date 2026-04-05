@@ -53,6 +53,7 @@ const ArticleReviewBody = ({ article }: ArticleReviewBodyProps) => (
         alt=''
         fill
         priority
+        loading='eager'
         aria-hidden
         className='object-cover scale-105 blur-sm brightness-[0.28]'
         sizes='100vw'
@@ -96,6 +97,7 @@ const ArticleReviewBody = ({ article }: ArticleReviewBodyProps) => (
           alt={article.title}
           fill
           priority
+          loading='eager'
           sizes='(max-width: 768px) 100vw, 75vw'
           className='object-cover'
           style={{ border: '1px solid rgba(184,151,42,0.25)' }}

@@ -1,4 +1,3 @@
-// app/components/NewsBody.tsx
 import '../globals.css'
 import Link from 'next/link'
 import ReviewNews from '../utils/ReviewNews'

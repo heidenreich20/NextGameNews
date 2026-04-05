@@ -73,6 +73,7 @@ const ResultItem = ({ item, query, onSelect }: { item: NewsItem; query: string; 
           fill
           sizes='80px'
           className='object-cover'
+          priority
         />
       </div>
       <div className='flex flex-col justify-between min-w-0 py-0.5'>
@@ -160,21 +161,25 @@ const SearchBar = () => {
 
   return (
     <div ref={wrapperRef} className='relative flex flex-col'>
+      <div className="sr-only" aria-live="polite" aria-atomic="true">
+        {value && `${results.length} resultado${results.length !== 1 ? 's' : ''} encontrados`}
+      </div>
+
       <form role='search' onSubmit={e => e.preventDefault()} className='flex items-center'>
         <label htmlFor={inputId} className='sr-only'>Buscar artículos</label>
-
         <div className='relative flex items-center'>
           <input
             id={inputId}
-            type='text'            // ← was 'search'
+            type='text'
             value={value}
             onChange={e => setValue(e.target.value)}
             onFocus={() => results.length > 0 && setOpen(true)}
             placeholder='Buscar...'
             autoComplete='off'
             aria-expanded={open}
-            aria-controls='search-results'
+            aria-controls='search-results-list'
             aria-autocomplete='list'
+            aria-haspopup='listbox'
             className='w-40 csm:w-52 focus:w-52 csm:focus:w-64 py-1 pl-3 pr-7 text-sm outline-none transition-all duration-200'
             style={{
               background: 'var(--color-surface)',
@@ -198,7 +203,7 @@ const SearchBar = () => {
         </div>
         <button
           type='submit'
-          aria-label='Buscar'
+          aria-label='Ejecutar búsqueda'
           className='flex items-center justify-center px-2.5 h-7.5 transition-opacity duration-200 hover:opacity-80'
           style={{
             background: 'var(--color-primary)',
@@ -212,20 +217,22 @@ const SearchBar = () => {
       </form>
       {open && results.length > 0 && (
         <div
-          id='search-results'
-          role='listbox'
           className='absolute top-full left-0 mt-1 w-80 z-50 rounded overflow-hidden shadow-2xl'
           style={{ background: 'var(--color-surface)', border: '1px solid rgba(184,151,42,0.25)' }}
         >
           <div className='px-3 py-2' style={{ borderBottom: '1px solid rgba(184,151,42,0.15)' }}>
             <span
+              aria-hidden="true"
               className='text-[0.6rem] tracking-[0.2em] uppercase'
               style={{ fontFamily: 'var(--font-article)', color: 'var(--color-primary-lt)' }}
             >
               {results.length} resultado{results.length !== 1 ? 's' : ''}
             </span>
           </div>
-          <ul className='flex flex-col py-1 max-h-[70vh] overflow-y-auto divide-y divide-white/5'>
+          <ul
+            id='search-results-list'
+            className='flex flex-col py-1 max-h-[70vh] overflow-y-auto divide-y divide-white/5'
+          >
             {results.map(item => (
               <ResultItem key={item.id} item={item} query={value} onSelect={handleSelect} />
             ))}
