@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import { Autoplay } from 'swiper/modules'
 import { NewsItem } from '@/types/types'
+import { optimizeImage } from '@/lib/api'
 
 // ── Console icons ─────────────────────────────────────────────────────────────
 
@@ -50,13 +51,12 @@ interface BigNewsProps {
 const BigNews = ({ image, text, type, console: platforms }: BigNewsProps) => (
   <article className='group relative flex overflow-hidden rounded-xl shadow-lg aspect-video'>
     <Image
-      src={image}
+      src={optimizeImage(image, { format: 'auto', quality: 'auto' })}
       alt={text}
       fill
       sizes='(max-width: 1024px) 100vw, 50vw'
       className='object-cover transition-transform duration-700 group-hover:scale-105'
       priority
-      fetchPriority='high'
     />
     <div
       className='absolute inset-0'
@@ -97,12 +97,11 @@ const SmallNews = ({ image, text, href, priority = false }: SmallNewsProps) => (
     aria-label={text}
   >
     <Image
-      src={image}
+      src={optimizeImage(image, { format: 'auto', quality: 'auto' })}
       alt={text}
       fill
       sizes='(max-width: 720px) 100vw, 33vw'
       priority={priority}
-      loading={priority ? 'eager' : 'lazy'}
       className='object-cover transition-transform duration-500 group-hover:scale-105'
     />
     <div

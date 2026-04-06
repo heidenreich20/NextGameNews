@@ -5,7 +5,7 @@ import Link from 'next/link'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/es'
-import { fetchAllNews } from '@/lib/api'
+import { fetchAllNews, optimizeImage } from '@/lib/api'
 import { NewsItem } from '@/types/types'
 
 dayjs.locale('es')
@@ -81,10 +81,11 @@ const ResultItem = ({ item, query, onSelect }: ResultItemProps) => (
     >
       <div className='relative w-20 h-14 shrink-0 overflow-hidden rounded'>
         <Image
-          src={item.image}
+          src={optimizeImage(item.image, { format: 'auto', quality: 'auto' })}
           alt={item.title}
           fill
           sizes='80px'
+          loading='lazy'
           className='object-cover'
         />
       </div>
@@ -124,6 +125,7 @@ const SearchBar = () => {
   const [open,     setOpen]    = useState(false)
   const inputId    = useId()
   const wrapperRef = useRef<HTMLDivElement>(null)
+  const listRef    = useRef<HTMLUListElement>(null)
 
   useEffect(() => {
     fetchAllNews().then(setAllNews).catch(console.error)
@@ -139,7 +141,7 @@ const SearchBar = () => {
   }, [])
 
   const search = useCallback((query: string) => {
-    if (!query.trim()) { setResults([]); setOpen(false); return }
+    if (!query.trim() || allNews.length === 0) { setResults([]); setOpen(false); return }
 
     setLoading(true)
     const matches = allNews
@@ -178,10 +180,18 @@ const SearchBar = () => {
           <input
             id={inputId}
             type='text'
-            value={value}
             role='combobox'
+            value={value}
             onChange={e => setValue(e.target.value)}
             onFocus={() => results.length > 0 && setOpen(true)}
+            onKeyDown={e => {
+              if (e.key === 'ArrowDown' && open) {
+                e.preventDefault()
+                const first = listRef.current?.querySelector('a') as HTMLElement
+                first?.focus()
+              }
+              if (e.key === 'Escape') handleClear()
+            }}
             placeholder='Buscar...'
             autoComplete='off'
             aria-expanded={open}
@@ -239,6 +249,7 @@ const SearchBar = () => {
             </span>
           </div>
           <ul
+            ref={listRef}
             role='listbox'
             id='search-results-list'
             className='flex flex-col py-1 max-h-[70vh] overflow-y-auto divide-y divide-white/5'

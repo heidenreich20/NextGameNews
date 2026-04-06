@@ -1,13 +1,14 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { optimizeImage } from '@/lib/api'
 
 interface ArticleCardProps {
-  title: string
-  image: string
-  author: string
-  category: string
-  time: string
-  id: string
+  title:     string
+  image:     string
+  author:    string
+  category:  string
+  time:      string
+  id:        string
   priority?: boolean
 }
 
@@ -16,12 +17,11 @@ export const ArticleCard = ({ title, image, author, category, time, id, priority
     <div className='absolute left-0 top-0 w-0.5 h-0 bg-primary group-hover:h-full transition-all duration-300 z-10' aria-hidden />
     <div className='relative csm:w-50 md:w-60 shrink-0 aspect-video overflow-hidden'>
       <Image
-        src={image}
+        src={optimizeImage(image, { format: 'auto', quality: 'auto' })}
         alt={`${category} — ${title}`}
         fill
         sizes='(max-width: 720px) 100vw, 240px'
         priority={priority}
-        loading='eager'
         className='object-cover transition-transform duration-500 group-hover:scale-[1.04]'
       />
       <div className='absolute inset-0 csm:hidden flex flex-col justify-end p-3 z-10'

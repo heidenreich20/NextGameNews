@@ -1,6 +1,7 @@
 'use client'
 import { useState, useCallback } from 'react'
-import ReactMarkdown from 'react-markdown'
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import { NewsItem } from '@/types/types'
 import { createArticle, uploadImage } from '@/lib/api'
 
@@ -93,7 +94,11 @@ const MarkdownEditor = ({
           }}
         >
           {value
-            ? <div className='prose-article'><ReactMarkdown>{value}</ReactMarkdown></div>
+            ? <div className='prose-article'>
+              <Markdown remarkPlugins={[remarkGfm]}>
+                {value}
+              </Markdown>
+            </div>
             : <p style={{ color: 'rgba(232,213,163,0.25)', fontStyle: 'italic' }}>Nada que previsualizar aún...</p>
           }
         </div>
@@ -115,14 +120,14 @@ const MarkdownEditor = ({
           }}
         >
           {[
-            ['# Título',      'H1'],
-            ['## Subtítulo',  'H2'],
-            ['**negrita**',   'Negrita'],
-            ['*cursiva*',     'Cursiva'],
-            ['> cita',        'Cita'],
-            ['`código`',      'Código'],
-            ['---',           'Separador'],
-            ['[texto](url)',  'Enlace'],
+            ['# Título', 'H1'],
+            ['## Subtítulo', 'H2'],
+            ['**negrita**', 'Negrita'],
+            ['*cursiva*', 'Cursiva'],
+            ['> cita', 'Cita'],
+            ['`código`', 'Código'],
+            ['---', 'Separador'],
+            ['[texto](url)', 'Enlace'],
           ].map(([syntax, label]) => (
             <div key={syntax} className='flex gap-2'>
               <span style={{ color: 'var(--color-primary-lt)' }}>{syntax}</span>
@@ -138,10 +143,10 @@ const MarkdownEditor = ({
 // ── Admin form ────────────────────────────────────────────────────────────────
 
 export default function AdminForm() {
-  const [form,      setForm]      = useState<FormState>(EMPTY_FORM)
-  const [apiKey,    setApiKey]    = useState('')
-  const [status,    setStatus]    = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-  const [message,   setMessage]   = useState('')
+  const [form, setForm] = useState<FormState>(EMPTY_FORM)
+  const [apiKey, setApiKey] = useState('')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [message, setMessage] = useState('')
   const [uploading, setUploading] = useState(false)
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -278,9 +283,9 @@ export default function AdminForm() {
                 className='px-3 py-1 text-xs rounded transition-all duration-150'
                 style={{
                   fontFamily: 'var(--font-article)',
-                  border:     '1px solid rgba(184,151,42,0.35)',
+                  border: '1px solid rgba(184,151,42,0.35)',
                   background: form.console.includes(name) ? 'var(--color-primary)' : 'transparent',
-                  color:      form.console.includes(name) ? 'var(--color-secondary)' : 'var(--color-cream)',
+                  color: form.console.includes(name) ? 'var(--color-secondary)' : 'var(--color-cream)',
                 }}
               >
                 {name}
@@ -298,8 +303,8 @@ export default function AdminForm() {
           <p className='text-sm px-3 py-2 rounded' style={{
             fontFamily: 'var(--font-article)',
             background: status === 'success' ? 'rgba(184,151,42,0.1)' : 'rgba(220,38,38,0.1)',
-            border:     `1px solid ${status === 'success' ? 'rgba(184,151,42,0.3)' : 'rgba(220,38,38,0.3)'}`,
-            color:      status === 'success' ? 'var(--color-primary-lt)' : '#f87171',
+            border: `1px solid ${status === 'success' ? 'rgba(184,151,42,0.3)' : 'rgba(220,38,38,0.3)'}`,
+            color: status === 'success' ? 'var(--color-primary-lt)' : '#f87171',
           }}>
             {message}
           </p>
@@ -310,10 +315,10 @@ export default function AdminForm() {
           disabled={status === 'loading' || uploading}
           className='px-8 py-3 text-sm font-bold tracking-[0.2em] uppercase transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed mb-12'
           style={{
-            fontFamily:      'var(--font-article)',
-            color:           'var(--color-secondary)',
+            fontFamily: 'var(--font-article)',
+            color: 'var(--color-secondary)',
             backgroundColor: 'var(--color-primary)',
-            border:          '2px solid var(--color-primary-lt)',
+            border: '2px solid var(--color-primary-lt)',
           }}
         >
           {status === 'loading' ? 'Publicando...' : 'Publicar artículo'}

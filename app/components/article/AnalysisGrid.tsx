@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
+import { optimizeImage } from '@/lib/api'
 
 interface AnalysisItem {
   id:       string
@@ -18,7 +19,7 @@ const AnalysisCard = ({ id, category, image, title }: AnalysisItem) => (
     aria-label={title ?? category}
   >
     <Image
-      src={image}
+      src={optimizeImage(image, { format: 'auto', quality: 'auto' })}
       alt={title ?? category}
       fill
       sizes='(max-width: 1150px) 50vw, 200px'

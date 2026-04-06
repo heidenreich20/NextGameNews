@@ -9,7 +9,9 @@ interface FetchOptions extends Omit<RequestInit, 'signal'> {
   timeout?: number
 }
 
-async function apiFetch<T>(path: string, { revalidate, timeout = 10_000, ...init }: FetchOptions = {}): Promise<T> {
+const isServer = typeof window === 'undefined'
+
+async function apiFetch<T>(path: string, { revalidate, timeout = isServer ? 30_000 : 10_000, ...init }: FetchOptions = {}): Promise<T> {
   const url = `${BASE}/${path.replace(/^\//, '')}`
 
   const res = await fetch(url, {
@@ -133,6 +135,38 @@ export async function uploadImage(file: File, apiKey: string): Promise<string> {
 
   const data = await res.json()
   return data.url
+}
+
+// ── Cloudinary ────────────────────────────────────────────────────────────────
+
+interface CloudinaryOptions {
+  width?:   number
+  height?:  number
+  quality?: 'auto' | number
+  format?:  'auto' | 'webp' | 'avif'
+  crop?:    'fill' | 'fit' | 'scale' | 'thumb'
+}
+
+export function optimizeImage(url: string, options: CloudinaryOptions = {}): string {
+  if (!url?.includes('res.cloudinary.com')) return url
+
+  const {
+    width,
+    height,
+    quality = 'auto',
+    format  = 'auto',
+    crop    = 'fill',
+  } = options
+
+  const transforms = [
+    `f_${format}`,
+    `q_${quality}`,
+    crop && width ? `c_${crop}` : null,
+    width         ? `w_${width}` : null,
+    height        ? `h_${height}` : null,
+  ].filter(Boolean).join(',')
+
+  return url.replace('/upload/', `/upload/${transforms}/`)
 }
 
 // ── Health ────────────────────────────────────────────────────────────────────

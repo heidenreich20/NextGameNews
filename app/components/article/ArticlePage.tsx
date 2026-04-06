@@ -1,9 +1,11 @@
 import Image from 'next/image'
-import ReactMarkdown from 'react-markdown'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/es'
-import { NewsItem } from '../../types/types'
+import { NewsItem } from '@/types/types'
+import { optimizeImage } from '@/lib/api'
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 dayjs.locale('es')
 dayjs.extend(relativeTime)
@@ -46,13 +48,11 @@ const ArticleReviewBody = ({ article }: ArticleReviewBodyProps) => (
   <article className='min-h-screen' style={{ backgroundColor: 'var(--color-secondary)' }}>
     <div className='relative min-h-[88vh] flex flex-col justify-end overflow-hidden'>
       <HeroAccent />
-
       <Image
-        src={article.image}
-        alt=''
+        src={optimizeImage(article.image, { format: 'auto', quality: 'auto' })}
+        alt={article.title}
         fill
         priority
-        loading='eager'
         aria-hidden
         className='object-cover scale-105 blur-sm brightness-[0.28]'
         sizes='100vw'
@@ -92,11 +92,10 @@ const ArticleReviewBody = ({ article }: ArticleReviewBodyProps) => (
     <div className='px-6 sm:px-16'>
       <div className='relative max-w-4xl mx-auto -translate-y-10 aspect-video'>
         <Image
-          src={article.image}
+          src={optimizeImage(article.image, { format: 'auto', quality: 'auto' })}
           alt={article.title}
           fill
           priority
-          loading='eager'
           sizes='(max-width: 768px) 100vw, 75vw'
           className='object-cover'
           style={{ border: '1px solid rgba(184,151,42,0.25)' }}
@@ -126,9 +125,9 @@ const ArticleReviewBody = ({ article }: ArticleReviewBodyProps) => (
       }}
     >
       <div className='prose-article'>
-        <ReactMarkdown>
+        <Markdown remarkPlugins={[remarkGfm]}>
           {article.text ?? ''}
-        </ReactMarkdown>
+        </Markdown>
       </div>
     </div>
     <div className='max-w-3xl mx-auto px-6 sm:px-16 pb-16'>

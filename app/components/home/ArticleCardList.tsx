@@ -15,11 +15,12 @@ const ArticleCardList = ({ articles = [] }: { articles: NewsItem[] }) => {
 
   return (
     <ul className='flex flex-col gap-2 col-span-2 p-3 csm:px-0 py-4'>
-      {articles.map(({ createdAt, id, ...rest }) => (
+      {articles.map(({ createdAt, id, ...rest }, index) => (
         <ArticleCard
           key={id}
           id={id}
           time={dayjs(createdAt).fromNow()}
+          priority={index === 0}
           {...rest}
         />
       ))}
