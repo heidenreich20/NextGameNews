@@ -1,4 +1,3 @@
-// tests/unit/fuzzyMatch.test.ts
 import { describe, it, expect } from 'vitest'
 
 const fuzzyMatch = (needle: string, haystack: string): boolean => {

@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test'
 
 test.describe('Article page', () => {
+
   test('navigates from home to article and renders content', async ({ page }) => {
     await page.goto('http://localhost:3000', { waitUntil: 'networkidle' })
 
@@ -16,24 +17,8 @@ test.describe('Article page', () => {
     await expect(page.locator('article h1')).not.toBeEmpty({ timeout: 10_000 })
   })
 
-  test('shows error page for invalid article ID', async ({ page }) => {
-    await page.goto('http://localhost:3000/analisis/invalid-id')
-    await expect(page.getByText(/error al cargar/i)).toBeVisible({ timeout: 10_000 })
-  })
-
-  test('debug — check article count vs total', async ({ page }) => {
-  await page.goto('http://localhost:3000', { waitUntil: 'networkidle' })
-  await page.locator('li.group').first().waitFor({ timeout: 15_000 })
-
-  const articleCount = await page.locator('li.group').count()
-  console.log('Visible article cards:', articleCount)
-
-  const progressLabel = page.locator('text=/de.*artículos/')
-  const hasProgress   = await progressLabel.isVisible()
-  console.log('Progress label visible:', hasProgress)
-  if (hasProgress) console.log('Progress text:', await progressLabel.textContent())
-
-  const loadMoreArea = await page.locator('section').last().innerHTML()
-  console.log('Last section HTML snippet:', loadMoreArea.slice(0, 500))
+  test('shows not found for non-existent article', async ({ page }) => {
+    await page.goto('http://localhost:3000/analisis/00000000-0000-0000-0000-000000000000')
+    await expect(page.getByRole('heading', { name: /404|no encontrado/i })).toBeVisible({ timeout: 10_000 })
   })
 })
