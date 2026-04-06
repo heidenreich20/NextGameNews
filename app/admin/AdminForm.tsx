@@ -2,7 +2,7 @@
 import { useState, useCallback } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { NewsItem } from '@/types/types'
-import { createArticle } from '@/lib/api'
+import { createArticle, uploadImage } from '@/lib/api'
 
 const CONSOLE_OPTIONS = ['PlayStation', 'Xbox', 'Nintendo', 'PC'] as const
 
@@ -25,6 +25,8 @@ const labelStyle: React.CSSProperties = {
   textTransform: 'uppercase', color: 'var(--color-primary-lt)',
   display: 'block', marginBottom: '0.35rem',
 }
+
+// ── Markdown editor ───────────────────────────────────────────────────────────
 
 const MarkdownEditor = ({
   value,
@@ -91,11 +93,7 @@ const MarkdownEditor = ({
           }}
         >
           {value
-            ? (
-              <div className='prose-article'>
-                <ReactMarkdown >{value}</ReactMarkdown>
-              </div>
-            )
+            ? <div className='prose-article'><ReactMarkdown>{value}</ReactMarkdown></div>
             : <p style={{ color: 'rgba(232,213,163,0.25)', fontStyle: 'italic' }}>Nada que previsualizar aún...</p>
           }
         </div>
@@ -117,14 +115,14 @@ const MarkdownEditor = ({
           }}
         >
           {[
-            ['# Título', 'H1'],
-            ['## Subtítulo', 'H2'],
-            ['**negrita**', 'Negrita'],
-            ['*cursiva*', 'Cursiva'],
-            ['> cita', 'Cita'],
-            ['`código`', 'Código'],
-            ['---', 'Separador'],
-            ['[texto](url)', 'Enlace'],
+            ['# Título',      'H1'],
+            ['## Subtítulo',  'H2'],
+            ['**negrita**',   'Negrita'],
+            ['*cursiva*',     'Cursiva'],
+            ['> cita',        'Cita'],
+            ['`código`',      'Código'],
+            ['---',           'Separador'],
+            ['[texto](url)',  'Enlace'],
           ].map(([syntax, label]) => (
             <div key={syntax} className='flex gap-2'>
               <span style={{ color: 'var(--color-primary-lt)' }}>{syntax}</span>
@@ -136,11 +134,15 @@ const MarkdownEditor = ({
     </div>
   )
 }
+
+// ── Admin form ────────────────────────────────────────────────────────────────
+
 export default function AdminForm() {
-  const [form, setForm] = useState<FormState>(EMPTY_FORM)
-  const [apiKey, setApiKey] = useState('')
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-  const [message, setMessage] = useState('')
+  const [form,      setForm]      = useState<FormState>(EMPTY_FORM)
+  const [apiKey,    setApiKey]    = useState('')
+  const [status,    setStatus]    = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [message,   setMessage]   = useState('')
+  const [uploading, setUploading] = useState(false)
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
@@ -154,6 +156,21 @@ export default function AdminForm() {
         : [...prev.console, name],
     }))
   }, [])
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploading(true)
+    try {
+      const url = await uploadImage(file, apiKey)
+      setForm(prev => ({ ...prev, image: url }))
+    } catch (err: any) {
+      setStatus('error')
+      setMessage(err?.message ?? 'Error al subir la imagen')
+    } finally {
+      setUploading(false)
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -180,8 +197,14 @@ export default function AdminForm() {
 
         <div>
           <label style={labelStyle}>API Key</label>
-          <input type='password' value={apiKey} onChange={e => setApiKey(e.target.value)}
-            placeholder='••••••••' style={inputStyle} required />
+          <input
+            type='password'
+            value={apiKey}
+            onChange={e => setApiKey(e.target.value)}
+            placeholder='••••••••'
+            style={inputStyle}
+            required
+          />
         </div>
 
         <div>
@@ -210,11 +233,33 @@ export default function AdminForm() {
           <input name='category' value={form.category} onChange={handleChange} style={inputStyle} required />
         </div>
 
+        {/* ── Image upload ── */}
         <div>
-          <label style={labelStyle}>URL de imagen</label>
-          <input name='image' value={form.image} onChange={handleChange} style={inputStyle} required />
-          {form.image && (
-            <img src={form.image} alt='preview' loading='lazy'
+          <label style={labelStyle}>Imagen</label>
+          <input
+            type='file'
+            accept='image/*'
+            onChange={handleImageUpload}
+            disabled={uploading || !apiKey}
+            style={{
+              ...inputStyle,
+              cursor: apiKey && !uploading ? 'pointer' : 'not-allowed',
+              opacity: !apiKey ? 0.5 : 1,
+            }}
+          />
+          {!apiKey && (
+            <p style={{ ...labelStyle, marginTop: '0.35rem', color: 'rgba(232,213,163,0.35)' }}>
+              Ingresa tu API Key antes de subir una imagen
+            </p>
+          )}
+          {uploading && (
+            <p style={{ ...labelStyle, marginTop: '0.35rem' }}>Subiendo imagen...</p>
+          )}
+          {form.image && !uploading && (
+            <img
+              src={form.image}
+              alt='preview'
+              loading='lazy'
               className='mt-2 rounded aspect-video object-cover w-full'
               style={{ border: '1px solid rgba(184,151,42,0.2)' }}
               onError={e => (e.currentTarget.style.display = 'none')}
@@ -226,19 +271,24 @@ export default function AdminForm() {
           <label style={labelStyle}>Plataformas</label>
           <div className='flex gap-3 flex-wrap'>
             {CONSOLE_OPTIONS.map(name => (
-              <button key={name} type='button' onClick={() => handleConsoleToggle(name)}
+              <button
+                key={name}
+                type='button'
+                onClick={() => handleConsoleToggle(name)}
                 className='px-3 py-1 text-xs rounded transition-all duration-150'
                 style={{
                   fontFamily: 'var(--font-article)',
-                  border: '1px solid rgba(184,151,42,0.35)',
+                  border:     '1px solid rgba(184,151,42,0.35)',
                   background: form.console.includes(name) ? 'var(--color-primary)' : 'transparent',
-                  color: form.console.includes(name) ? 'var(--color-secondary)' : 'var(--color-cream)',
-                }}>
+                  color:      form.console.includes(name) ? 'var(--color-secondary)' : 'var(--color-cream)',
+                }}
+              >
                 {name}
               </button>
             ))}
           </div>
         </div>
+
         <MarkdownEditor
           value={form.text}
           onChange={val => setForm(prev => ({ ...prev, text: val }))}
@@ -248,19 +298,24 @@ export default function AdminForm() {
           <p className='text-sm px-3 py-2 rounded' style={{
             fontFamily: 'var(--font-article)',
             background: status === 'success' ? 'rgba(184,151,42,0.1)' : 'rgba(220,38,38,0.1)',
-            border: `1px solid ${status === 'success' ? 'rgba(184,151,42,0.3)' : 'rgba(220,38,38,0.3)'}`,
-            color: status === 'success' ? 'var(--color-primary-lt)' : '#f87171',
+            border:     `1px solid ${status === 'success' ? 'rgba(184,151,42,0.3)' : 'rgba(220,38,38,0.3)'}`,
+            color:      status === 'success' ? 'var(--color-primary-lt)' : '#f87171',
           }}>
             {message}
           </p>
         )}
 
-        <button type='submit' disabled={status === 'loading'}
+        <button
+          type='submit'
+          disabled={status === 'loading' || uploading}
           className='px-8 py-3 text-sm font-bold tracking-[0.2em] uppercase transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed mb-12'
           style={{
-            fontFamily: 'var(--font-article)', color: 'var(--color-secondary)',
-            backgroundColor: 'var(--color-primary)', border: '2px solid var(--color-primary-lt)',
-          }}>
+            fontFamily:      'var(--font-article)',
+            color:           'var(--color-secondary)',
+            backgroundColor: 'var(--color-primary)',
+            border:          '2px solid var(--color-primary-lt)',
+          }}
+        >
           {status === 'loading' ? 'Publicando...' : 'Publicar artículo'}
         </button>
 

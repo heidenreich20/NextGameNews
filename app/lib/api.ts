@@ -108,6 +108,33 @@ export async function deleteArticle(id: string, apiKey: string): Promise<void> {
   })
 }
 
+// ── Upload ────────────────────────────────────────────────────────────────────
+
+export async function uploadImage(file: File, apiKey: string): Promise<string> {
+  const formData = new FormData()
+  formData.append('image', file)
+
+  const url = `${BASE}/upload`
+
+  const res = await fetch(url, {
+    method:  'POST',
+    headers: { 'x-api-key': apiKey },
+    body:    formData,
+    signal:  AbortSignal.timeout(15_000),
+  })
+
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}))
+    throw Object.assign(
+      new Error(error?.error ?? `Upload failed: ${res.status}`),
+      { status: res.status }
+    )
+  }
+
+  const data = await res.json()
+  return data.url
+}
+
 // ── Health ────────────────────────────────────────────────────────────────────
 
 export function pingHealth(): void {
